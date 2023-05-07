@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise;
 using LabCaseus.Analise.Application.Queries.BuscarTodosCertificadosAnalise;
+using LabCaseus.Analise.Application.Queries.BuscarCertificadoAnalisePeloUId;
 
 namespace LabCaseus.Analise.Api.Controllers
 {
@@ -45,8 +46,14 @@ namespace LabCaseus.Analise.Api.Controllers
         [HttpGet]
         [Route("certificados-analises/buscar-pelo-uid/{certificadoAnaliseUId}")]
         public async Task<ActionResult> BuscarCertificadoAnalisePeloUId([FromRoute] Guid certificadoAnaliseUId, CancellationToken cancellationToken)
-        {  
-            return ResponseApiOk();
+        {
+            var query = new BuscarCertificadoAnalisePeloUIdQuery(certificadoAnaliseUId);
+
+            await _mediator.SendCommand(query, cancellationToken);
+
+            if (query.GetResponse() == null) return ResponseApiNotFound();
+
+            return ResponseApiOk(query.GetResponse());
         }
     }
 }

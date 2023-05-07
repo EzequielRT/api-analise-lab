@@ -14,14 +14,65 @@ namespace LabCaseus.Analise.Infra.Data.Repositories
             _context = context;
         }
 
-        public Task<CertificadoAnalise> BuscarCertificadoAnalisePeloUIdAsNoTrackingAsync(Guid certificadoAnaliseUId, CancellationToken cancellationToken = default)
+        public async Task<CertificadoAnalise> BuscarCertificadoAnalisePeloUIdAsNoTrackingAsync(Guid certificadoAnaliseUId, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var certificadoAnalise = await _context.CertificadosAnalises
+                .AsNoTracking()
+                .Include(x => x.Cliente)
+                .Include(x => x.FarmaceuticoResponsavel)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.Ph)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.Ferro)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.Turbidez)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.Cloreto)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.CorAparente)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.AspectoVisual)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.CloroResidualLivre)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.SolidosTotaisDissolvidos)
+                .Include(x => x.EspecificacaosMetodologiasAnalise)
+                    .ThenInclude(x => x.EspecificacaoMetodologia)
+                .Include(x => x.AnaliseMicrobiologica)
+                    .ThenInclude(x => x.ColiformeTermotolerante)
+                .FirstOrDefaultAsync(x => x.UId == certificadoAnaliseUId, cancellationToken);
+
+            return certificadoAnalise;
         }
 
-        public Task<CertificadoAnalise> BuscarCertificadoAnalisePeloUIdAsync(Guid certificadoAnaliseUId, CancellationToken cancellationToken = default)
+        public async Task<CertificadoAnalise> BuscarCertificadoAnalisePeloUIdAsync(Guid certificadoAnaliseUId, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var certificadoAnalise = await _context.CertificadosAnalises
+                .Include(x => x.Cliente)
+                .Include(x => x.FarmaceuticoResponsavel)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.Ph)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.Ferro)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.Turbidez)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.Cloreto)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.CorAparente)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.AspectoVisual)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.CloroResidualLivre)
+                .Include(x => x.AnaliseFisicoQuimica)
+                    .ThenInclude(x => x.SolidosTotaisDissolvidos)
+                .Include(x => x.EspecificacaosMetodologiasAnalise)
+                    .ThenInclude(x => x.EspecificacaoMetodologia)
+                .Include(x => x.AnaliseMicrobiologica)
+                    .ThenInclude(x => x.ColiformeTermotolerante)
+                .FirstOrDefaultAsync(x => x.UId == certificadoAnaliseUId, cancellationToken);
+
+            return certificadoAnalise;
         }
 
         public async Task<List<CertificadoAnalise>> BuscarTodosCertificadosAnaliseAsync(CancellationToken cancellationToken = default)

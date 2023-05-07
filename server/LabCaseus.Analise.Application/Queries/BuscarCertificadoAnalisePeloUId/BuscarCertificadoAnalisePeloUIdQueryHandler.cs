@@ -4,14 +4,14 @@ using LabCaseus.Analise.Application.Mediator.Notifications;
 using LabCaseus.Analise.Domain.Repositories;
 using MediatR;
 
-namespace LabCaseus.Analise.Application.Queries.BuscarTodosCertificadosAnalise
+namespace LabCaseus.Analise.Application.Queries.BuscarCertificadoAnalisePeloUId
 {
-    public class BuscarTodosCertificadosAnaliseQueryHandler : CommandHandler,
-        IRequestHandler<BuscarTodosCertificadosAnaliseQuery, bool>
+    public class BuscarCertificadoAnalisePeloUIdQueryHandler : CommandHandler,
+       IRequestHandler<BuscarCertificadoAnalisePeloUIdQuery, bool>
     {
         private readonly ICertificadoAnaliseRepository _certificadoAnaliseRepository;
 
-        public BuscarTodosCertificadosAnaliseQueryHandler(
+        public BuscarCertificadoAnalisePeloUIdQueryHandler(
             IMediatorHandler mediator,
             INotificationHandler<DomainNotification> notifications,
             ICertificadoAnaliseRepository certificadoAnaliseRepository) : base(mediator, notifications)
@@ -19,13 +19,11 @@ namespace LabCaseus.Analise.Application.Queries.BuscarTodosCertificadosAnalise
             _certificadoAnaliseRepository = certificadoAnaliseRepository;
         }
 
-        public async Task<bool> Handle(BuscarTodosCertificadosAnaliseQuery request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(BuscarCertificadoAnalisePeloUIdQuery request, CancellationToken cancellationToken)
         {
-            var certificadosAnalise = await _certificadoAnaliseRepository.BuscarTodosCertificadosAnaliseAsync(cancellationToken);
+            var certificadosAnalise = await _certificadoAnaliseRepository.BuscarCertificadoAnalisePeloUIdAsNoTrackingAsync(request.CertificadoAnaliseUId, cancellationToken);
 
-            var certificadosAnaliseViewModel = certificadosAnalise
-                .Select(x => CertificadoAnaliseViewModel.FromEntity(x))
-                .ToList();
+            var certificadosAnaliseViewModel = CertificadoAnaliseViewModel.FromEntity(certificadosAnalise);
 
             request.SetResponse(certificadosAnaliseViewModel);
 
