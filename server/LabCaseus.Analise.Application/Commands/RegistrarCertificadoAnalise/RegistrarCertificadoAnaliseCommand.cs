@@ -47,6 +47,15 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
 
     public class AnaliseFisicoQuimicaInputModel
     {
+        public const string ESPECIFICACAO_SOLIDOS_TOTAIS_DISSOLVIDOS = "Máximo 500 mg/L";
+        public const string ESPECIFICACAO_CLORO_RESIDUAL_LIVRE = "Mínimo 1,0 mg/L";
+        public const string ESPECIFICACAO_ASPECTO_VISUAL = "Ausência de floração de algas ou outros organismos";
+        public const string ESPECIFICACAO_COR_APARENTE = "Máximo 75 uH";
+        public const string ESPECIFICACAO_CLORETO = "Máximo 250 mg/L";
+        public const string ESPECIFICACAO_TURBIDEZ = "Máximo 40 uT";
+        public const string ESPECIFICACAO_FERRO = "Máximo 0,3 mg/L";
+        public const string ESPECIFICACAO_PH = "0,6 a 0,9";
+
         public PhInputModel Ph { get; set; }
         public FerroInputModel Ferro { get; set; }
         public TurbidezInputModel Turbidez { get; set; }
@@ -58,7 +67,7 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
 
         public class SolidosTotaisDissolvidosInputModel
         {
-            public string Especificacao { get; set; }
+            public string Especificacao { get; private set; } = ESPECIFICACAO_SOLIDOS_TOTAIS_DISSOLVIDOS;
             public string Resultado { get; set; }
 
             public SolidosTotaisDissolvidos ToEntity()
@@ -69,7 +78,7 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
 
         public class CloroResidualLivreInputModel
         {
-            public string Especificacao { get; set; }
+            public string Especificacao { get; private set; } = ESPECIFICACAO_CLORO_RESIDUAL_LIVRE;
             public string Resultado { get; set; }
 
             public CloroResidualLivre ToEntity()
@@ -80,7 +89,7 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
 
         public class AspectoVisualInputModel
         {
-            public string Especificacao { get; set; }
+            public string Especificacao { get; private set; } = ESPECIFICACAO_ASPECTO_VISUAL;
             public string Resultado { get; set; }
 
             public AspectoVisual ToEntity()
@@ -91,7 +100,7 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
 
         public class CorAparenteInputModel
         {
-            public string Especificacao { get; set; }
+            public string Especificacao { get; private set; } = ESPECIFICACAO_COR_APARENTE;
             public string Resultado { get; set; }
 
             public CorAparente ToEntity()
@@ -102,7 +111,7 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
 
         public class CloretoInputModel
         {
-            public string Especificacao { get; set; }
+            public string Especificacao { get; private set; } = ESPECIFICACAO_CLORETO;
             public string Resultado { get; set; }
 
             public Cloreto ToEntity()
@@ -113,7 +122,7 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
 
         public class TurbidezInputModel
         {
-            public string Especificacao { get; set; }
+            public string Especificacao { get; private set; } = ESPECIFICACAO_TURBIDEZ;
             public string Resultado { get; set; }
 
             public Turbidez ToEntity()
@@ -124,7 +133,7 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
 
         public class FerroInputModel
         {
-            public string Especificacao { get; set; }
+            public string Especificacao { get; private set; } = ESPECIFICACAO_FERRO;
             public string Resultado { get; set; }
 
             public Ferro ToEntity()
@@ -135,7 +144,7 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
 
         public class PhInputModel
         {
-            public string Especificacao { get; set; }
+            public string Especificacao { get; private set; } = ESPECIFICACAO_PH;
             public string Resultado { get; set; }
 
             public Ph ToEntity()
@@ -147,16 +156,19 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
 
     public class AnaliseMicrobiologicaInputModel
     {
+
+        public const string ESPECIFICACAO_COLIFORME_TERMOTOLERANTE = "Máximo 2500 UFC/mL";
+
         public ColiformeTermotoleranteInputModel ColiformesTermotolerantes { get; set; }
 
         public class ColiformeTermotoleranteInputModel
         {
-            public string Especificacao { get; set; }
+            public string Especificacao { get; private set; }
             public string Resultado { get; set; }
 
             public ColiformeTermotolerante ToEntity()
             {
-                return new ColiformeTermotolerante(Especificacao, Resultado);
+                return new ColiformeTermotolerante(ESPECIFICACAO_COLIFORME_TERMOTOLERANTE, Resultado);
             }
         }
     }

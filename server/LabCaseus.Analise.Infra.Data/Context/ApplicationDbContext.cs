@@ -1,7 +1,6 @@
 ﻿using LabCaseus.Analise.Domain.Entities;
 using LabCaseus.Analise.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
 using System.Reflection;
 
 namespace LabCaseus.Analise.Infra.Data.Context
