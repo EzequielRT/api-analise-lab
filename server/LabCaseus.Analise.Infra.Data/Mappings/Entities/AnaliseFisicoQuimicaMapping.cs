@@ -56,11 +56,6 @@ namespace LabCaseus.Analise.Infra.Data.Mappings.Entities
               .HasColumnName("fk_cod_solidos_totais_dissolvidos")
               .IsRequired();
 
-            builder
-                .HasOne(a => a.CertificadoAnalise)
-                .WithOne(c => c.AnaliseFisicoQuimica)
-                .HasForeignKey<CertificadoAnalise>(c => c.AnaliseFisicoQuimicaId);
-
             builder.ToTable("tb_analise_fisico_quimica");
 
             builder.HasData(new AnaliseFisicoQuimica(1, 1, 1, 1, 1, 1, 1, 1, 1, 1));

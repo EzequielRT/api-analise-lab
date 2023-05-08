@@ -3,7 +3,6 @@
     public class CertificadoAnalise : Base
     {
         public CertificadoAnalise(
-            string numero,
             string amostra,
             string localColeta,
             DateTime dataHoraColeta,
@@ -14,11 +13,8 @@
             DateTime dataHoraTerminoAnalise,
             string parecerFarmaceutico,
             int clienteId,
-            int farmaceuticoResponsavelId,
-            int analiseFisicoQuimicaId,
-            int analiseMicrobiologicaId)
+            int farmaceuticoResponsavelId)
         {
-            Numero = numero;
             Amostra = amostra;
             LocalColeta = localColeta;
             DataHoraColeta = dataHoraColeta;
@@ -30,13 +26,10 @@
             ParecerFarmaceutico = parecerFarmaceutico;
             ClienteId = clienteId;
             FarmaceuticoResponsavelId = farmaceuticoResponsavelId;
-            AnaliseFisicoQuimicaId = analiseFisicoQuimicaId;
-            AnaliseMicrobiologicaId = analiseMicrobiologicaId;
         }
 
         public CertificadoAnalise(
             int id,
-            string numero,
             string amostra,
             string localColeta,
             DateTime dataHoraColeta,
@@ -47,12 +40,9 @@
             DateTime dataHoraTerminoAnalise,
             string parecerFarmaceutico,
             int clienteId,
-            int farmaceuticoResponsavelId,
-            int analiseFisicoQuimicaId,
-            int analiseMicrobiologicaId)
+            int farmaceuticoResponsavelId)
         {
             Id = id;
-            Numero = numero;
             Amostra = amostra;
             LocalColeta = localColeta;
             DataHoraColeta = dataHoraColeta;
@@ -64,8 +54,6 @@
             ParecerFarmaceutico = parecerFarmaceutico;
             ClienteId = clienteId;
             FarmaceuticoResponsavelId = farmaceuticoResponsavelId;
-            AnaliseFisicoQuimicaId = analiseFisicoQuimicaId;
-            AnaliseMicrobiologicaId = analiseMicrobiologicaId;
 
             EspecificacaosMetodologiasAnalise = new List<EspecificacaoMetodologiaAnalise>();
         }
@@ -89,12 +77,8 @@
         public int FarmaceuticoResponsavelId { get; private set; }
         public virtual FarmaceuticoResponsavel FarmaceuticoResponsavel { get; set; }
 
-        public int AnaliseFisicoQuimicaId { get; private set; }
         public virtual AnaliseFisicoQuimica AnaliseFisicoQuimica { get; set; }
-
-        public int AnaliseMicrobiologicaId { get; private set; }
         public virtual AnaliseMicrobiologica AnaliseMicrobiologica { get; set; }
-
         public virtual List<EspecificacaoMetodologiaAnalise> EspecificacaosMetodologiasAnalise { get; set; }
     }
 }

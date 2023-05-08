@@ -75,29 +75,24 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.HasIndex("AspectoVisualId")
+                    b.HasIndex("AspectoVisualId");
+
+                    b.HasIndex("CertificadoAnaliseId")
                         .IsUnique();
 
-                    b.HasIndex("CloretoId")
-                        .IsUnique();
+                    b.HasIndex("CloretoId");
 
-                    b.HasIndex("CloroResidualLivreId")
-                        .IsUnique();
+                    b.HasIndex("CloroResidualLivreId");
 
-                    b.HasIndex("CorAparenteId")
-                        .IsUnique();
+                    b.HasIndex("CorAparenteId");
 
-                    b.HasIndex("FerroId")
-                        .IsUnique();
+                    b.HasIndex("FerroId");
 
-                    b.HasIndex("PhId")
-                        .IsUnique();
+                    b.HasIndex("PhId");
 
-                    b.HasIndex("SolidosTotaisDissolvidosId")
-                        .IsUnique();
+                    b.HasIndex("SolidosTotaisDissolvidosId");
 
-                    b.HasIndex("TurbidezId")
-                        .IsUnique();
+                    b.HasIndex("TurbidezId");
 
                     b.ToTable("tb_analise_fisico_quimica", (string)null);
 
@@ -114,7 +109,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             PhId = 1,
                             SolidosTotaisDissolvidosId = 1,
                             TurbidezId = 1,
-                            UId = new Guid("10e74b5b-ae1a-49db-bea3-33ec9d95d166")
+                            UId = new Guid("ac0e8d29-05e3-4672-ac0b-06a54ead338f")
                         });
                 });
 
@@ -143,8 +138,10 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.HasIndex("ColiformeTermotoleranteId")
+                    b.HasIndex("CertificadoAnaliseId")
                         .IsUnique();
+
+                    b.HasIndex("ColiformeTermotoleranteId");
 
                     b.ToTable("tb_analise_microbiologica", (string)null);
 
@@ -154,7 +151,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             CertificadoAnaliseId = 1,
                             ColiformeTermotoleranteId = 1,
-                            UId = new Guid("0a3d048f-12cd-4819-86bb-4a004fff629d")
+                            UId = new Guid("2f6e2a61-fd86-4fcc-8eb6-452bb5289680")
                         });
                 });
 
@@ -172,14 +169,6 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("des_amostra");
-
-                    b.Property<int>("AnaliseFisicoQuimicaId")
-                        .HasColumnType("int")
-                        .HasColumnName("fk_cod_analise_fisico_quimica");
-
-                    b.Property<int>("AnaliseMicrobiologicaId")
-                        .HasColumnType("int")
-                        .HasColumnName("fk_cod_analise_microbiologica");
 
                     b.Property<int>("ClienteId")
                         .HasColumnType("int")
@@ -218,7 +207,6 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                         .HasColumnName("des_local_coleta");
 
                     b.Property<string>("Numero")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("des_numero");
@@ -243,27 +231,20 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.HasIndex("AnaliseFisicoQuimicaId")
-                        .IsUnique();
+                    b.HasIndex("ClienteId");
 
-                    b.HasIndex("AnaliseMicrobiologicaId")
-                        .IsUnique();
+                    b.HasIndex("FarmaceuticoResponsavelId");
 
-                    b.HasIndex("ClienteId")
-                        .IsUnique();
-
-                    b.HasIndex("FarmaceuticoResponsavelId")
-                        .IsUnique();
-
-                    b.ToTable("tb_certificado_analise", (string)null);
+                    b.ToTable("tb_certificado_analise", null, t =>
+                        {
+                            t.HasTrigger("Trg_tb_certificado_analise_Insert");
+                        });
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Amostra = "Água de recreação",
-                            AnaliseFisicoQuimicaId = 1,
-                            AnaliseMicrobiologicaId = 1,
                             ClienteId = 1,
                             DataHoraColeta = new DateTime(2020, 2, 3, 8, 20, 0, 0, DateTimeKind.Unspecified),
                             DataHoraInicioAnalise = new DateTime(2020, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -272,10 +253,9 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             FarmaceuticoResponsavelId = 1,
                             FuncaoAgua = "Lazer",
                             LocalColeta = "Piscina Grande",
-                            Numero = "AGUA 056/20",
                             ParecerFarmaceutico = "A amostra analisada atende às especificações descritas.",
                             ResponsavelColeta = "Aparecida Amadeu",
-                            UId = new Guid("c47b0055-23b7-4395-a5cd-804076149026")
+                            UId = new Guid("27dee132-cee2-42b3-ab8b-1917b74b3faf")
                         });
                 });
 
@@ -323,7 +303,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Cnpj = "19.532.464/0001-77",
                             Endereco = "Avenida Cel. Antônio Augusto de Souza 49 - Cataguases - MG",
                             RazaoSocial = "Clube do Remo",
-                            UId = new Guid("06c7966f-0635-444d-9f72-a9597a786d88")
+                            UId = new Guid("79091898-893f-4fc2-b553-6c76172a5ffb")
                         });
                 });
 
@@ -364,14 +344,14 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             CertificadoAnaliseId = 1,
                             EspecificacaoMetodologiaId = 1,
-                            UId = new Guid("8bae27b6-0168-4821-9d52-32a520f01534")
+                            UId = new Guid("c33cfe83-0216-43de-a64d-e9f146be58b0")
                         },
                         new
                         {
                             Id = 2,
                             CertificadoAnaliseId = 1,
                             EspecificacaoMetodologiaId = 2,
-                            UId = new Guid("0a556534-d686-4206-ba77-4b2cb84391fd")
+                            UId = new Guid("2464f7ad-679f-4d1d-ac4d-90341166e3fa")
                         });
                 });
 
@@ -419,7 +399,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             FarmaceuticoEspecialidade = "Farmacêutico Bioquímico",
                             FarmaceuticoNome = "José Carlos de Almeida Junior",
                             FarmaceuticoRegistroCrq = "CRQ/MG 02419351",
-                            UId = new Guid("5c60d401-6ae0-489f-9c85-f02144cc87ea")
+                            UId = new Guid("672b33c9-b01a-45a6-9562-7004c695d756")
                         });
                 });
 
@@ -460,7 +440,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Ausência de floração de algas ou outros organismos",
                             Resultado = "De acordo",
-                            UId = new Guid("0e691995-7538-4992-bc3e-d53f1a1b4433")
+                            UId = new Guid("8bbda99c-f9d3-4190-acde-971e905296d2")
                         });
                 });
 
@@ -501,7 +481,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Máximo 250 mg/L",
                             Resultado = "31,8 mg/L",
-                            UId = new Guid("e3a58dc5-c408-46b2-a1f9-0d9b4c7d4ea7")
+                            UId = new Guid("7f3b1933-20f8-4370-8380-19a67c2001bb")
                         });
                 });
 
@@ -542,7 +522,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Mínimo 1,0 mg/L",
                             Resultado = "4,2 mg/L",
-                            UId = new Guid("37fcc2c2-8409-4acf-8ff1-190c2d9ec609")
+                            UId = new Guid("0a9b973a-8dde-4d3f-b497-387903d9a4d3")
                         });
                 });
 
@@ -583,7 +563,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Máximo 2500 UFC/mL",
                             Resultado = "<1,0 x 10¹ UFC/mL est",
-                            UId = new Guid("9220115b-2bb7-4d65-a8d5-e21a00d93805")
+                            UId = new Guid("d108ab5f-fc62-43a9-82d2-1209a127fdd3")
                         });
                 });
 
@@ -624,7 +604,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Máximo 75 uH",
                             Resultado = "0,0 uH",
-                            UId = new Guid("9307da80-55af-4492-9d9c-ec9eee8137fd")
+                            UId = new Guid("f68c2f8f-2c61-40bf-8053-2344d437fbc6")
                         });
                 });
 
@@ -658,13 +638,13 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                         {
                             Id = 1,
                             Descricao = "Resolução CONAMA nº 274 de 29 de novembro de 2000.",
-                            UId = new Guid("32ca7dc4-1d92-43cc-8e6b-e970ec6835c1")
+                            UId = new Guid("42e04c65-51a7-40f6-a8c7-0344f6b19282")
                         },
                         new
                         {
                             Id = 2,
                             Descricao = "Standard Methods for the Examination of Water and Wastewater - American Public Health Association (APHA).",
-                            UId = new Guid("3f27e88f-40a8-49c6-9778-d8539330a236")
+                            UId = new Guid("73b606cf-6b83-4f23-9d62-e5a65b732961")
                         });
                 });
 
@@ -705,7 +685,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Máximo 0,3 mg/L",
                             Resultado = "0,0 mg/L",
-                            UId = new Guid("6af134df-109e-4c67-a7b2-2f968f208dd1")
+                            UId = new Guid("e2b8ebf0-7ffd-4b9a-aa43-66b8711d0ce0")
                         });
                 });
 
@@ -746,7 +726,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "0,6 a 0,9",
                             Resultado = "7,8",
-                            UId = new Guid("ef971fed-5453-4fc2-bd21-c33f26c10945")
+                            UId = new Guid("41a86c2d-7809-4b8a-bdb7-cc51819f96e8")
                         });
                 });
 
@@ -787,7 +767,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Máximo 500 mg/L",
                             Resultado = "229,0 mg/L",
-                            UId = new Guid("6fc4a626-a768-4b81-9d2b-8336923546b5")
+                            UId = new Guid("41e8ec61-d1d7-4739-87ad-48de3f24b44e")
                         });
                 });
 
@@ -828,61 +808,69 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Máximo 40 uT",
                             Resultado = "0,8 uT",
-                            UId = new Guid("43a45291-1c6b-44c9-b4eb-88cc5b8cecf6")
+                            UId = new Guid("ee1776b9-1964-4a3b-946f-773b54e51e29")
                         });
                 });
 
             modelBuilder.Entity("LabCaseus.Analise.Domain.Entities.AnaliseFisicoQuimica", b =>
                 {
                     b.HasOne("LabCaseus.Analise.Domain.ValueObjects.AspectoVisual", "AspectoVisual")
+                        .WithMany()
+                        .HasForeignKey("AspectoVisualId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LabCaseus.Analise.Domain.Entities.CertificadoAnalise", "CertificadoAnalise")
                         .WithOne("AnaliseFisicoQuimica")
-                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.AnaliseFisicoQuimica", "AspectoVisualId")
+                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.AnaliseFisicoQuimica", "CertificadoAnaliseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LabCaseus.Analise.Domain.ValueObjects.Cloreto", "Cloreto")
-                        .WithOne("AnaliseFisicoQuimica")
-                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.AnaliseFisicoQuimica", "CloretoId")
+                        .WithMany()
+                        .HasForeignKey("CloretoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LabCaseus.Analise.Domain.ValueObjects.CloroResidualLivre", "CloroResidualLivre")
-                        .WithOne("AnaliseFisicoQuimica")
-                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.AnaliseFisicoQuimica", "CloroResidualLivreId")
+                        .WithMany()
+                        .HasForeignKey("CloroResidualLivreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LabCaseus.Analise.Domain.ValueObjects.CorAparente", "CorAparente")
-                        .WithOne("AnaliseFisicoQuimica")
-                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.AnaliseFisicoQuimica", "CorAparenteId")
+                        .WithMany()
+                        .HasForeignKey("CorAparenteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LabCaseus.Analise.Domain.ValueObjects.Ferro", "Ferro")
-                        .WithOne("AnaliseFisicoQuimica")
-                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.AnaliseFisicoQuimica", "FerroId")
+                        .WithMany()
+                        .HasForeignKey("FerroId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LabCaseus.Analise.Domain.ValueObjects.Ph", "Ph")
-                        .WithOne("AnaliseFisicoQuimica")
-                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.AnaliseFisicoQuimica", "PhId")
+                        .WithMany()
+                        .HasForeignKey("PhId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LabCaseus.Analise.Domain.ValueObjects.SolidosTotaisDissolvidos", "SolidosTotaisDissolvidos")
-                        .WithOne("AnaliseFisicoQuimica")
-                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.AnaliseFisicoQuimica", "SolidosTotaisDissolvidosId")
+                        .WithMany()
+                        .HasForeignKey("SolidosTotaisDissolvidosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LabCaseus.Analise.Domain.ValueObjects.Turbidez", "Turbidez")
-                        .WithOne("AnaliseFisicoQuimica")
-                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.AnaliseFisicoQuimica", "TurbidezId")
+                        .WithMany()
+                        .HasForeignKey("TurbidezId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AspectoVisual");
+
+                    b.Navigation("CertificadoAnalise");
 
                     b.Navigation("Cloreto");
 
@@ -901,44 +889,36 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
             modelBuilder.Entity("LabCaseus.Analise.Domain.Entities.AnaliseMicrobiologica", b =>
                 {
-                    b.HasOne("LabCaseus.Analise.Domain.ValueObjects.ColiformeTermotolerante", "ColiformeTermotolerante")
+                    b.HasOne("LabCaseus.Analise.Domain.Entities.CertificadoAnalise", "CertificadoAnalise")
                         .WithOne("AnaliseMicrobiologica")
-                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.AnaliseMicrobiologica", "ColiformeTermotoleranteId")
+                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.AnaliseMicrobiologica", "CertificadoAnaliseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("LabCaseus.Analise.Domain.ValueObjects.ColiformeTermotolerante", "ColiformeTermotolerante")
+                        .WithMany()
+                        .HasForeignKey("ColiformeTermotoleranteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CertificadoAnalise");
 
                     b.Navigation("ColiformeTermotolerante");
                 });
 
             modelBuilder.Entity("LabCaseus.Analise.Domain.Entities.CertificadoAnalise", b =>
                 {
-                    b.HasOne("LabCaseus.Analise.Domain.Entities.AnaliseFisicoQuimica", "AnaliseFisicoQuimica")
-                        .WithOne("CertificadoAnalise")
-                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.CertificadoAnalise", "AnaliseFisicoQuimicaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LabCaseus.Analise.Domain.Entities.AnaliseMicrobiologica", "AnaliseMicrobiologica")
-                        .WithOne("CertificadoAnalise")
-                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.CertificadoAnalise", "AnaliseMicrobiologicaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("LabCaseus.Analise.Domain.Entities.Cliente", "Cliente")
-                        .WithOne("CertificadoAnalise")
-                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.CertificadoAnalise", "ClienteId")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LabCaseus.Analise.Domain.Entities.FarmaceuticoResponsavel", "FarmaceuticoResponsavel")
-                        .WithOne("CertificadoAnalise")
-                        .HasForeignKey("LabCaseus.Analise.Domain.Entities.CertificadoAnalise", "FarmaceuticoResponsavelId")
+                        .WithMany()
+                        .HasForeignKey("FarmaceuticoResponsavelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("AnaliseFisicoQuimica");
-
-                    b.Navigation("AnaliseMicrobiologica");
 
                     b.Navigation("Cliente");
 
@@ -954,7 +934,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("LabCaseus.Analise.Domain.ValueObjects.EspecificacaoMetodologia", "EspecificacaoMetodologia")
-                        .WithMany("EspecificacaoMetodologiaAnalise")
+                        .WithMany()
                         .HasForeignKey("EspecificacaoMetodologiaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -964,79 +944,13 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                     b.Navigation("EspecificacaoMetodologia");
                 });
 
-            modelBuilder.Entity("LabCaseus.Analise.Domain.Entities.AnaliseFisicoQuimica", b =>
-                {
-                    b.Navigation("CertificadoAnalise");
-                });
-
-            modelBuilder.Entity("LabCaseus.Analise.Domain.Entities.AnaliseMicrobiologica", b =>
-                {
-                    b.Navigation("CertificadoAnalise");
-                });
-
             modelBuilder.Entity("LabCaseus.Analise.Domain.Entities.CertificadoAnalise", b =>
                 {
-                    b.Navigation("EspecificacaosMetodologiasAnalise");
-                });
-
-            modelBuilder.Entity("LabCaseus.Analise.Domain.Entities.Cliente", b =>
-                {
-                    b.Navigation("CertificadoAnalise");
-                });
-
-            modelBuilder.Entity("LabCaseus.Analise.Domain.Entities.FarmaceuticoResponsavel", b =>
-                {
-                    b.Navigation("CertificadoAnalise");
-                });
-
-            modelBuilder.Entity("LabCaseus.Analise.Domain.ValueObjects.AspectoVisual", b =>
-                {
                     b.Navigation("AnaliseFisicoQuimica");
-                });
 
-            modelBuilder.Entity("LabCaseus.Analise.Domain.ValueObjects.Cloreto", b =>
-                {
-                    b.Navigation("AnaliseFisicoQuimica");
-                });
-
-            modelBuilder.Entity("LabCaseus.Analise.Domain.ValueObjects.CloroResidualLivre", b =>
-                {
-                    b.Navigation("AnaliseFisicoQuimica");
-                });
-
-            modelBuilder.Entity("LabCaseus.Analise.Domain.ValueObjects.ColiformeTermotolerante", b =>
-                {
                     b.Navigation("AnaliseMicrobiologica");
-                });
 
-            modelBuilder.Entity("LabCaseus.Analise.Domain.ValueObjects.CorAparente", b =>
-                {
-                    b.Navigation("AnaliseFisicoQuimica");
-                });
-
-            modelBuilder.Entity("LabCaseus.Analise.Domain.ValueObjects.EspecificacaoMetodologia", b =>
-                {
-                    b.Navigation("EspecificacaoMetodologiaAnalise");
-                });
-
-            modelBuilder.Entity("LabCaseus.Analise.Domain.ValueObjects.Ferro", b =>
-                {
-                    b.Navigation("AnaliseFisicoQuimica");
-                });
-
-            modelBuilder.Entity("LabCaseus.Analise.Domain.ValueObjects.Ph", b =>
-                {
-                    b.Navigation("AnaliseFisicoQuimica");
-                });
-
-            modelBuilder.Entity("LabCaseus.Analise.Domain.ValueObjects.SolidosTotaisDissolvidos", b =>
-                {
-                    b.Navigation("AnaliseFisicoQuimica");
-                });
-
-            modelBuilder.Entity("LabCaseus.Analise.Domain.ValueObjects.Turbidez", b =>
-                {
-                    b.Navigation("AnaliseFisicoQuimica");
+                    b.Navigation("EspecificacaosMetodologiasAnalise");
                 });
 #pragma warning restore 612, 618
         }

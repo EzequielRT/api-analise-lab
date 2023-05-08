@@ -1,6 +1,7 @@
 ﻿using LabCaseus.Analise.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection.Emit;
 
 namespace LabCaseus.Analise.Infra.Data.Mappings.Entities
 {
@@ -22,8 +23,8 @@ namespace LabCaseus.Analise.Infra.Data.Mappings.Entities
 
             builder.Property(e => e.Numero)
                 .HasColumnName("des_numero")
-                .HasMaxLength(50)
-                .IsRequired();
+                .ValueGeneratedOnAdd()
+                .HasMaxLength(50);
 
             builder.Property(e => e.Amostra)
                 .HasColumnName("des_amostra")
@@ -78,19 +79,22 @@ namespace LabCaseus.Analise.Infra.Data.Mappings.Entities
                .HasColumnName("fk_cod_farmaceutico_responsavel")
                .IsRequired();
 
-            builder.Property(e => e.AnaliseFisicoQuimicaId)
-               .HasColumnName("fk_cod_analise_fisico_quimica")
-               .IsRequired();
+            builder
+                .HasOne(a => a.AnaliseFisicoQuimica)
+                .WithOne(c => c.CertificadoAnalise)
+                .HasForeignKey<AnaliseFisicoQuimica>(c => c.CertificadoAnaliseId);
 
-            builder.Property(e => e.AnaliseMicrobiologicaId)
-               .HasColumnName("fk_cod_analise_microbiologica")
-               .IsRequired();
+            builder
+                .HasOne(a => a.AnaliseMicrobiologica)
+                .WithOne(c => c.CertificadoAnalise)
+                .HasForeignKey<AnaliseMicrobiologica>(c => c.CertificadoAnaliseId);
 
             builder.ToTable("tb_certificado_analise");
 
+            builder.ToTable(x => x.HasTrigger("Trg_tb_certificado_analise_Insert"));
+
             builder.HasData(new CertificadoAnalise(
                 1,
-                "AGUA 056/20",
                 "Água de recreação",
                 "Piscina Grande",
                 new DateTime(2020, 2, 3, 8, 20, 0),
@@ -100,8 +104,6 @@ namespace LabCaseus.Analise.Infra.Data.Mappings.Entities
                 new DateTime(2020, 2, 3),
                 new DateTime(2020, 2, 5),
                 "A amostra analisada atende às especificações descritas.",
-                1,
-                1,
                 1,
                 1));
         }

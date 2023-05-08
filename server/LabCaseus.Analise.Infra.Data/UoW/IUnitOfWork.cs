@@ -6,8 +6,8 @@ namespace LabCaseus.Analise.Infra.Data.UoW
     {
         ICertificadoAnaliseRepository CertificadosAnalises { get; }
         IClienteRepository Clientes { get; }
-        Task<bool> CompleteAsync();
-        Task BeginTransactionAsync();
-        Task CommitAsync();
+        Task<bool> CompleteAsync(CancellationToken cancellationToken = default);
+        Task BeginTransactionAsync(CancellationToken cancellationToken = default);
+        Task CommitAsync(CancellationToken cancellationToken = default);
     }
 }

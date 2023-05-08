@@ -7,7 +7,7 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
     public class RegistrarCertificadoAnaliseCommand : Command
     {
         public Guid CertificadoAnaliseUId { get; private set; }
-        public string Numero { get; set; }
+        public string Numero { get; private set; }
         public string Amostra { get; set; }
         public string LocalColeta { get; set; }
         public DateTime DataHoraColeta { get; set; }
@@ -21,9 +21,28 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
         public FarmaceuticoResponsavelInputModel FarmaceuticoResponsavel { get; set; }
         public AnaliseFisicoQuimicaInputModel AnaliseFisicoQuimica { get; set; }
         public AnaliseMicrobiologicaInputModel AnaliseMicrobiologica { get; set; }
-        public List<Guid> EspecificacoesMetodologiasAnaliseUId { get; set; }
+        public int[] EspecificacoesMetodologiasAnaliseId { get; set; }
 
         public void SetCertificadoAnaliseUId(Guid certificadoAnaliseUId) => CertificadoAnaliseUId = certificadoAnaliseUId;
+        public void SetNumero(string numero) => Numero = numero;
+
+        public CertificadoAnalise ToEntity(
+            int clienteId,
+            int farmaceuticoResponsavelId)
+        {
+            return new CertificadoAnalise(
+                Amostra,
+                LocalColeta,
+                DataHoraColeta,
+                ResponsavelColeta,
+                FuncaoAgua,
+                DataHoraRecebimentoCaseus,
+                DataHoraInicioAnalise,
+                DataHoraTerminoAnalise,
+                ParecerFarmaceutico,
+                clienteId,
+                farmaceuticoResponsavelId);
+        }
     }
 
     public class AnaliseFisicoQuimicaInputModel
@@ -128,7 +147,7 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
 
     public class AnaliseMicrobiologicaInputModel
     {
-        public ColiformeTermotoleranteInputModel ColiformeTermotolerante { get; set; }
+        public ColiformeTermotoleranteInputModel ColiformesTermotolerantes { get; set; }
 
         public class ColiformeTermotoleranteInputModel
         {

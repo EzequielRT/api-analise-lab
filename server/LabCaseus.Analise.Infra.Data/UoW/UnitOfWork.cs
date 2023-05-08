@@ -22,25 +22,25 @@ namespace LabCaseus.Analise.Infra.Data.UoW
             Clientes = _clienteRepository;
         }
 
-        public async Task<bool> CompleteAsync()
+        public async Task<bool> CompleteAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.SaveChangesAsync() > 0;
+            return await _context.SaveChangesAsync(cancellationToken) > 0;
         }
 
-        public async Task BeginTransactionAsync()
+        public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
         {
-            _transaction = await _context.Database.BeginTransactionAsync();
+            _transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
         }
 
-        public async Task CommitAsync()
+        public async Task CommitAsync(CancellationToken cancellationToken = default)
         {
             try
             {
-                await _transaction.CommitAsync();
+                await _transaction.CommitAsync(cancellationToken);
             }
             catch (Exception ex)
             {
-                await _transaction.RollbackAsync();
+                await _transaction.RollbackAsync(cancellationToken);
                 throw ex;
             }
         }

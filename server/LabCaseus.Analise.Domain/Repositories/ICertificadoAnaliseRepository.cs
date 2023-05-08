@@ -5,6 +5,10 @@ namespace LabCaseus.Analise.Domain.Repositories
 {
     public interface ICertificadoAnaliseRepository
     {
+        Task AdicionarAsync(CertificadoAnalise certificadoAnalise, CancellationToken cancellationToken = default);
+        Task VincularAnaliseFisicoQuimicaAsync(AnaliseFisicoQuimica analiseFisicoQuimica, CancellationToken cancellationToken = default);
+        Task VincularAnaliseMicrobiologicaAsync(AnaliseMicrobiologica analiseMicrobiologica, CancellationToken cancellationToken = default);
+        Task VincularEspecificacoesMetodologiasAnaliseAsync(List<EspecificacaoMetodologiaAnalise> especificacoesMetodologiasAnalise, CancellationToken cancellationToken = default);
         Task<List<CertificadoAnalise>> BuscarTodosCertificadosAnaliseAsync(CancellationToken cancellationToken = default);
         Task<CertificadoAnalise> BuscarCertificadoAnalisePeloUIdAsync(Guid certificadoAnaliseUId, CancellationToken cancellationToken = default);
         Task<CertificadoAnalise> BuscarCertificadoAnalisePeloUIdAsNoTrackingAsync(Guid certificadoAnaliseUId, CancellationToken cancellationToken = default);

@@ -28,11 +28,6 @@ namespace LabCaseus.Analise.Infra.Data.Mappings.Entities
                .HasColumnName("fk_cod_certificado_analise")
                .IsRequired();
 
-            builder
-                .HasOne(a => a.CertificadoAnalise)
-                .WithOne(c => c.AnaliseMicrobiologica)
-                .HasForeignKey<CertificadoAnalise>(c => c.AnaliseMicrobiologicaId);
-
             builder.ToTable("tb_analise_microbiologica");
 
             builder.HasData(new AnaliseMicrobiologica(1, 1, 1));
