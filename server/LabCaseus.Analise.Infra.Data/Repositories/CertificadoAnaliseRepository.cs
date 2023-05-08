@@ -120,11 +120,6 @@ namespace LabCaseus.Analise.Infra.Data.Repositories
             return especificacoesMetodologia;
         }
 
-        public async Task AdicionarFarmaceuticoResponsavelAsync(FarmaceuticoResponsavel farmaceuticoResponsavel, CancellationToken cancellationToken = default)
-        {
-            await _context.FarmaceuticosResponsaveis.AddAsync(farmaceuticoResponsavel, cancellationToken);
-        }
-
         public async Task AdicionarPhAsync(Ph ph, CancellationToken cancellationToken = default)
         {
             await _context.Phs.AddAsync(ph, cancellationToken);

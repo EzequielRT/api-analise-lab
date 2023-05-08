@@ -16,15 +16,21 @@ namespace LabCaseus.Analise.Api.Controllers
     {
         private readonly IMediatorHandler _mediator;
         private readonly ICertificadoAnaliseRepository _certificadoAnaliseRepository;
+        private readonly IFarmaceuticoRepository _farmaceuticoRepository;
+        private readonly IClienteRepository _clienteRepository;
 
         public AnaliseController(
              ILogger<AnaliseController> logger,
              INotificationHandler<DomainNotification> notifications,
              IMediatorHandler mediator,
-             ICertificadoAnaliseRepository certificadoAnaliseRepository) : base(logger, notifications)
+             ICertificadoAnaliseRepository certificadoAnaliseRepository,
+             IFarmaceuticoRepository farmaceuticoRepository,
+             IClienteRepository clienteRepository) : base(logger, notifications)
         {
             _mediator = mediator;
             _certificadoAnaliseRepository = certificadoAnaliseRepository;
+            _farmaceuticoRepository = farmaceuticoRepository;
+            _clienteRepository = clienteRepository;
         }
 
         [HttpPost]
@@ -65,6 +71,20 @@ namespace LabCaseus.Analise.Api.Controllers
         public async Task<ActionResult> BuscarEspecificacoesMetodologia(CancellationToken cancellationToken)
         {
             return ResponseApiOk(await _certificadoAnaliseRepository.BuscarEspecificacoesMetodologiaAsNoTrackingAsync(cancellationToken));
+        }
+
+        [HttpGet]
+        [Route("certificados-analises/buscar-farmaceuticos")]
+        public async Task<ActionResult> BuscarFarmaceuticosResponsaveis(CancellationToken cancellationToken)
+        {
+            return ResponseApiOk(await _farmaceuticoRepository.BuscarFarmaceuticosAsNoTrackingAsync(cancellationToken));
+        }
+
+        [HttpGet]
+        [Route("certificados-analises/buscar-clientes")]
+        public async Task<ActionResult> BuscarClientes(CancellationToken cancellationToken)
+        {
+            return ResponseApiOk(await _clienteRepository.BuscarClientesAsNoTrackingAsync(cancellationToken));
         }
     }
 }

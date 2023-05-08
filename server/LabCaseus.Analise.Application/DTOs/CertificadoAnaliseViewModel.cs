@@ -65,7 +65,7 @@ namespace LabCaseus.Analise.Application.DTOs
 
     public class FarmaceuticoResponsavelViewModel
     {
-        public FarmaceuticoResponsavelViewModel(FarmaceuticoResponsavel farmaceuticoResponsavel)
+        public FarmaceuticoResponsavelViewModel(Farmaceutico farmaceuticoResponsavel)
         {
             FarmaceuticoNome = farmaceuticoResponsavel.FarmaceuticoNome;
             FarmaceuticoEspecialidade = farmaceuticoResponsavel.FarmaceuticoEspecialidade;

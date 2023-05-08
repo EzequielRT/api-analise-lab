@@ -126,19 +126,19 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tb_farmaceutico_responsavel",
+                name: "tb_farmaceutico",
                 columns: table => new
                 {
-                    cod_farmaceutico_responsavel = table.Column<int>(type: "int", nullable: false)
+                    cod_farmaceutico = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     des_farmaceutico_nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     des_farmaceutico_especialidade = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     des_farmaceutico_registro_crq = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    uid_farmaceutico_responsavel = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    uid_farmaceutico = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tb_farmaceutico_responsavel", x => x.cod_farmaceutico_responsavel)
+                    table.PrimaryKey("PK_tb_farmaceutico", x => x.cod_farmaceutico)
                         .Annotation("SqlServer:Clustered", true);
                 });
 
@@ -237,10 +237,10 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                         principalColumn: "cod_cliente",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_tb_certificado_analise_tb_farmaceutico_responsavel_fk_cod_farmaceutico_responsavel",
+                        name: "FK_tb_certificado_analise_tb_farmaceutico_fk_cod_farmaceutico_responsavel",
                         column: x => x.fk_cod_farmaceutico_responsavel,
-                        principalTable: "tb_farmaceutico_responsavel",
-                        principalColumn: "cod_farmaceutico_responsavel",
+                        principalTable: "tb_farmaceutico",
+                        principalColumn: "cod_farmaceutico",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -404,89 +404,89 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
             migrationBuilder.InsertData(
                 table: "tb_aspecto_visual",
                 columns: new[] { "cod_aspecto_visual", "des_especificacao", "des_resultado", "uid_aspecto_visual" },
-                values: new object[] { 1, "Ausência de floração de algas ou outros organismos", "De acordo", new Guid("8bbda99c-f9d3-4190-acde-971e905296d2") });
+                values: new object[] { 1, "Ausência de floração de algas ou outros organismos", "De acordo", new Guid("cb9f5919-5b1a-4c62-a4fd-b56c21f2aba0") });
 
             migrationBuilder.InsertData(
                 table: "tb_cliente",
                 columns: new[] { "cod_cliente", "des_cnpj", "des_endereco", "des_razao_social", "uid_cliente" },
-                values: new object[] { 1, "19.532.464/0001-77", "Avenida Cel. Antônio Augusto de Souza 49 - Cataguases - MG", "Clube do Remo", new Guid("79091898-893f-4fc2-b553-6c76172a5ffb") });
+                values: new object[] { 1, "19.532.464/0001-77", "Avenida Cel. Antônio Augusto de Souza 49 - Cataguases - MG", "Clube do Remo", new Guid("f9acee48-bf52-4920-8ba2-315f4c62b44d") });
 
             migrationBuilder.InsertData(
                 table: "tb_cloreto",
                 columns: new[] { "cod_cloreto", "des_especificacao", "des_resultado", "uid_cloreto" },
-                values: new object[] { 1, "Máximo 250 mg/L", "31,8 mg/L", new Guid("7f3b1933-20f8-4370-8380-19a67c2001bb") });
+                values: new object[] { 1, "Máximo 250 mg/L", "31,8 mg/L", new Guid("b41718eb-b135-44c8-9ecb-b35543af4832") });
 
             migrationBuilder.InsertData(
                 table: "tb_cloro_residual_livre",
                 columns: new[] { "cod_cloro_residual_livre", "des_especificacao", "des_resultado", "uid_cloro_residual_livre" },
-                values: new object[] { 1, "Mínimo 1,0 mg/L", "4,2 mg/L", new Guid("0a9b973a-8dde-4d3f-b497-387903d9a4d3") });
+                values: new object[] { 1, "Mínimo 1,0 mg/L", "4,2 mg/L", new Guid("9278a5a5-dd32-49c5-800b-5f8be676705b") });
 
             migrationBuilder.InsertData(
                 table: "tb_coliforme_termotolerante",
                 columns: new[] { "cod_coliforme_termotolerante", "des_especificacao", "des_resultado", "uid_coliforme_termotolerante" },
-                values: new object[] { 1, "Máximo 2500 UFC/mL", "<1,0 x 10¹ UFC/mL est", new Guid("d108ab5f-fc62-43a9-82d2-1209a127fdd3") });
+                values: new object[] { 1, "Máximo 2500 UFC/mL", "<1,0 x 10¹ UFC/mL est", new Guid("b05ba693-4e4e-4f34-a820-39804ab2a0bd") });
 
             migrationBuilder.InsertData(
                 table: "tb_cor_aparente",
                 columns: new[] { "cod_cor_aparente", "des_especificacao", "des_resultado", "uid_cor_aparente" },
-                values: new object[] { 1, "Máximo 75 uH", "0,0 uH", new Guid("f68c2f8f-2c61-40bf-8053-2344d437fbc6") });
+                values: new object[] { 1, "Máximo 75 uH", "0,0 uH", new Guid("8bd84850-edf1-4f52-bebc-27c4e4d5efe0") });
 
             migrationBuilder.InsertData(
                 table: "tb_especificacao_metodologia",
                 columns: new[] { "cod_especificacao_metodologia", "des_especificacao_metodologia", "uid_especificacao_metodologia" },
                 values: new object[,]
                 {
-                    { 1, "Resolução CONAMA nº 274 de 29 de novembro de 2000.", new Guid("42e04c65-51a7-40f6-a8c7-0344f6b19282") },
-                    { 2, "Standard Methods for the Examination of Water and Wastewater - American Public Health Association (APHA).", new Guid("73b606cf-6b83-4f23-9d62-e5a65b732961") }
+                    { 1, "Resolução CONAMA nº 274 de 29 de novembro de 2000.", new Guid("b46f591f-491c-4788-ace4-85b1ca1b719e") },
+                    { 2, "Standard Methods for the Examination of Water and Wastewater - American Public Health Association (APHA).", new Guid("cabba55e-4e1c-43c3-9e39-6e1b186e8d78") }
                 });
 
             migrationBuilder.InsertData(
-                table: "tb_farmaceutico_responsavel",
-                columns: new[] { "cod_farmaceutico_responsavel", "des_farmaceutico_especialidade", "des_farmaceutico_nome", "des_farmaceutico_registro_crq", "uid_farmaceutico_responsavel" },
-                values: new object[] { 1, "Farmacêutico Bioquímico", "José Carlos de Almeida Junior", "CRQ/MG 02419351", new Guid("672b33c9-b01a-45a6-9562-7004c695d756") });
+                table: "tb_farmaceutico",
+                columns: new[] { "cod_farmaceutico", "des_farmaceutico_especialidade", "des_farmaceutico_nome", "des_farmaceutico_registro_crq", "uid_farmaceutico" },
+                values: new object[] { 1, "Farmacêutico Bioquímico", "José Carlos de Almeida Junior", "CRQ/MG 02419351", new Guid("fdedab3f-9899-4a80-9f7a-65a376c52541") });
 
             migrationBuilder.InsertData(
                 table: "tb_ferro",
                 columns: new[] { "cod_ferro", "des_especificacao", "des_resultado", "uid_ferro" },
-                values: new object[] { 1, "Máximo 0,3 mg/L", "0,0 mg/L", new Guid("e2b8ebf0-7ffd-4b9a-aa43-66b8711d0ce0") });
+                values: new object[] { 1, "Máximo 0,3 mg/L", "0,0 mg/L", new Guid("8a6ac95c-6dbc-4678-bc5c-4bc405900f05") });
 
             migrationBuilder.InsertData(
                 table: "tb_ph",
                 columns: new[] { "cod_ph", "des_especificacao", "des_resultado", "uid_ph" },
-                values: new object[] { 1, "0,6 a 0,9", "7,8", new Guid("41a86c2d-7809-4b8a-bdb7-cc51819f96e8") });
+                values: new object[] { 1, "0,6 a 0,9", "7,8", new Guid("48f5f878-bdd8-45df-b736-7ea8b6d579fe") });
 
             migrationBuilder.InsertData(
                 table: "tb_solidos_totais_dissolvidos",
                 columns: new[] { "cod_solidos_totais_dissolvidos", "des_especificacao", "des_resultado", "uid_solidos_totais_dissolvidos" },
-                values: new object[] { 1, "Máximo 500 mg/L", "229,0 mg/L", new Guid("41e8ec61-d1d7-4739-87ad-48de3f24b44e") });
+                values: new object[] { 1, "Máximo 500 mg/L", "229,0 mg/L", new Guid("9cce2c76-2055-418f-be81-57711813b693") });
 
             migrationBuilder.InsertData(
                 table: "tb_turbidez",
                 columns: new[] { "cod_turbidez", "des_especificacao", "des_resultado", "uid_turbidez" },
-                values: new object[] { 1, "Máximo 40 uT", "0,8 uT", new Guid("ee1776b9-1964-4a3b-946f-773b54e51e29") });
+                values: new object[] { 1, "Máximo 40 uT", "0,8 uT", new Guid("29d88302-00d6-4c28-9755-2f0ebb3b6a24") });
 
             migrationBuilder.InsertData(
                 table: "tb_certificado_analise",
-                columns: new[] { "cod_certificado_analise", "des_amostra", "fk_cod_cliente", "data_hora_coleta", "data_hora_inicio_analise", "data_hora_recebimento_caseus", "data_hora_termino_analise", "fk_cod_farmaceutico_responsavel", "des_funcao_agua", "des_local_coleta", "des_numero", "des_parecer_farmaceutico", "des_responsavel_coleta", "uid_certificado_analise" },
-                values: new object[] { 1, "Água de recreação", 1, new DateTime(2020, 2, 3, 8, 20, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Lazer", "Piscina Grande", null, "A amostra analisada atende às especificações descritas.", "Aparecida Amadeu", new Guid("27dee132-cee2-42b3-ab8b-1917b74b3faf") });
+                columns: new[] { "cod_certificado_analise", "des_amostra", "fk_cod_cliente", "data_hora_coleta", "data_hora_inicio_analise", "data_hora_recebimento_caseus", "data_hora_termino_analise", "fk_cod_farmaceutico_responsavel", "des_funcao_agua", "des_local_coleta", "des_parecer_farmaceutico", "des_responsavel_coleta", "uid_certificado_analise" },
+                values: new object[] { 1, "Água de recreação", 1, new DateTime(2020, 2, 3, 8, 20, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Lazer", "Piscina Grande", "A amostra analisada atende às especificações descritas.", "Aparecida Amadeu", new Guid("91212d98-fbda-4906-a6f1-b1e09a106505") });
 
             migrationBuilder.InsertData(
                 table: "tb_analise_fisico_quimica",
                 columns: new[] { "cod_analise_fisico_quimica", "fk_cod_aspecto_visual", "fk_cod_certificado_analise", "fk_cod_cloreto", "fk_cod_cloreto_visual", "fk_cod_cor_aparente", "fk_cod_ferro", "fk_cod_ph", "fk_cod_solidos_totais_dissolvidos", "fk_cod_turbidez", "uid_analise_fisico_quimica" },
-                values: new object[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, new Guid("ac0e8d29-05e3-4672-ac0b-06a54ead338f") });
+                values: new object[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, new Guid("b88e3474-33da-4487-9820-f2b8ac26a8bc") });
 
             migrationBuilder.InsertData(
                 table: "tb_analise_microbiologica",
                 columns: new[] { "cod_analise_microbiologica", "fk_cod_certificado_analise", "fk_cod_coliforme_termotolerante", "uid_analise_microbiologica" },
-                values: new object[] { 1, 1, 1, new Guid("2f6e2a61-fd86-4fcc-8eb6-452bb5289680") });
+                values: new object[] { 1, 1, 1, new Guid("a7369928-a966-4a8a-bbc7-d7d4e7fd1c15") });
 
             migrationBuilder.InsertData(
                 table: "tb_especificacao_metodologia_analise",
                 columns: new[] { "cod_especificacao_metodologia_analise", "fk_cod_certificado_analise", "fk_cod_especificacao_metodologia", "uid_especificacao_metodologia_analise" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, new Guid("c33cfe83-0216-43de-a64d-e9f146be58b0") },
-                    { 2, 1, 2, new Guid("2464f7ad-679f-4d1d-ac4d-90341166e3fa") }
+                    { 1, 1, 1, new Guid("b84daa3b-eed9-400a-a610-e347e6979098") },
+                    { 2, 1, 2, new Guid("eb6ed0f2-d8bf-4443-9f30-0d51bd51d116") }
                 });
 
             migrationBuilder.CreateIndex(
@@ -616,7 +616,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                 name: "tb_cliente");
 
             migrationBuilder.DropTable(
-                name: "tb_farmaceutico_responsavel");
+                name: "tb_farmaceutico");
         }
     }
 }

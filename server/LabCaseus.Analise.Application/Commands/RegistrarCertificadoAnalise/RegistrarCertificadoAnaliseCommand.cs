@@ -18,8 +18,8 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
         public DateTime DataHoraInicioAnalise { get; set; }
         public DateTime DataHoraTerminoAnalise { get; set; }
         public string ParecerFarmaceutico { get; set; }
-        public ClienteInputModel Cliente { get; set; }
-        public FarmaceuticoResponsavelInputModel FarmaceuticoResponsavel { get; set; }
+        public int ClienteId { get; set; }
+        public int FarmaceuticoResponsavelId { get; set; }
         public AnaliseFisicoQuimicaInputModel AnaliseFisicoQuimica { get; set; }
         public AnaliseMicrobiologicaInputModel AnaliseMicrobiologica { get; set; }
         public int[] EspecificacoesMetodologiasAnaliseId { get; set; }
@@ -159,30 +159,6 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
             {
                 return new ColiformeTermotolerante(Especificacao, Resultado);
             }
-        }
-    }
-
-    public class ClienteInputModel
-    {
-        public string RazaoSocial { get; set; }
-        public string Cnpj { get; set; }
-        public string Endereco { get; set; }
-
-        public Cliente ToEntity()
-        {
-            return new Cliente(RazaoSocial, Cnpj, Endereco);
-        }
-    }
-
-    public class FarmaceuticoResponsavelInputModel
-    {
-        public string FarmaceuticoNome { get; set; }
-        public string FarmaceuticoEspecialidade { get; set; }
-        public string FarmaceuticoRegistroCrq { get; set; }
-
-        public FarmaceuticoResponsavel ToEntity()
-        {
-            return new FarmaceuticoResponsavel(FarmaceuticoNome, FarmaceuticoEspecialidade, FarmaceuticoRegistroCrq);
         }
     }
 }

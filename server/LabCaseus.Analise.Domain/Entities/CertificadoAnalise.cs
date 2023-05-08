@@ -75,7 +75,7 @@
         public virtual Cliente Cliente { get; private set; }
 
         public int FarmaceuticoResponsavelId { get; private set; }
-        public virtual FarmaceuticoResponsavel FarmaceuticoResponsavel { get; set; }
+        public virtual Farmaceutico FarmaceuticoResponsavel { get; set; }
 
         public virtual AnaliseFisicoQuimica AnaliseFisicoQuimica { get; set; }
         public virtual AnaliseMicrobiologica AnaliseMicrobiologica { get; set; }

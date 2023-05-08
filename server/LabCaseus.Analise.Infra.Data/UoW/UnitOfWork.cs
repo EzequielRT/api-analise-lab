@@ -10,16 +10,20 @@ namespace LabCaseus.Analise.Infra.Data.UoW
         private IDbContextTransaction _transaction;
 
         public ICertificadoAnaliseRepository CertificadosAnalises { get; }
+        public IFarmaceuticoRepository Farmaceuticos { get; }
         public IClienteRepository Clientes { get; }
+
 
         public UnitOfWork(
             ApplicationDbContext context,
             ICertificadoAnaliseRepository certificadoAnaliseRepository,
-            IClienteRepository _clienteRepository)
+            IClienteRepository clienteRepository,
+            IFarmaceuticoRepository farmaceuticoRepository)
         {
             _context = context;
             CertificadosAnalises = certificadoAnaliseRepository;
-            Clientes = _clienteRepository;
+            Clientes = clienteRepository;
+            Farmaceuticos = farmaceuticoRepository;
         }
 
         public async Task<bool> CompleteAsync(CancellationToken cancellationToken = default)

@@ -23,14 +23,6 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
         {
             await _uow.BeginTransactionAsync(cancellationToken);
 
-            var cliente = request.Cliente.ToEntity();
-            await _uow.Clientes.AdicionarClienteAsync(cliente, cancellationToken);
-            await _uow.CompleteAsync(cancellationToken);
-
-            var farmaceuticoResponsavel = request.FarmaceuticoResponsavel.ToEntity();
-            await _uow.CertificadosAnalises.AdicionarFarmaceuticoResponsavelAsync(farmaceuticoResponsavel, cancellationToken);
-            await _uow.CompleteAsync(cancellationToken);
-
             var ph = request.AnaliseFisicoQuimica.Ph.ToEntity();
             await _uow.CertificadosAnalises.AdicionarPhAsync(ph, cancellationToken);
             await _uow.CompleteAsync(cancellationToken);
@@ -67,7 +59,7 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
             await _uow.CertificadosAnalises.AdicionarColiformeTermotoleranteAsync(coliformeTermotolerante, cancellationToken);
             await _uow.CompleteAsync(cancellationToken);
 
-            var certificadoAnalise = request.ToEntity(cliente.Id, farmaceuticoResponsavel.Id);
+            var certificadoAnalise = request.ToEntity(request.ClienteId, request.FarmaceuticoResponsavelId);
             await _uow.CertificadosAnalises.AdicionarAsync(certificadoAnalise, cancellationToken);
             await _uow.CompleteAsync(cancellationToken);
 

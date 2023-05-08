@@ -39,6 +39,7 @@ namespace LabCaseus.Analise.Infra.Data
         private static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<ICertificadoAnaliseRepository, CertificadoAnaliseRepository>();
+            services.AddScoped<IFarmaceuticoRepository, FarmaceuticoRepository>();
             services.AddScoped<IClienteRepository, ClienteRepository>();            
 
             return services;

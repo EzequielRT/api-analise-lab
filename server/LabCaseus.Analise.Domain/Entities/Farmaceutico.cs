@@ -1,15 +1,15 @@
 ﻿namespace LabCaseus.Analise.Domain.Entities
 {
-    public class FarmaceuticoResponsavel : Base
+    public class Farmaceutico : Base
     {
-        public FarmaceuticoResponsavel(string farmaceuticoNome, string farmaceuticoEspecialidade, string farmaceuticoRegistroCrq)
+        public Farmaceutico(string farmaceuticoNome, string farmaceuticoEspecialidade, string farmaceuticoRegistroCrq)
         {
             FarmaceuticoNome = farmaceuticoNome;
             FarmaceuticoEspecialidade = farmaceuticoEspecialidade;
             FarmaceuticoRegistroCrq = farmaceuticoRegistroCrq;
         }
 
-        public FarmaceuticoResponsavel(int id, string farmaceuticoNome, string farmaceuticoEspecialidade, string farmaceuticoRegistroCrq)
+        public Farmaceutico(int id, string farmaceuticoNome, string farmaceuticoEspecialidade, string farmaceuticoRegistroCrq)
         {
             Id = id;
             FarmaceuticoNome = farmaceuticoNome;

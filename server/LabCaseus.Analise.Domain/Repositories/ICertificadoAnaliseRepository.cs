@@ -13,7 +13,6 @@ namespace LabCaseus.Analise.Domain.Repositories
         Task<CertificadoAnalise> BuscarCertificadoAnalisePeloUIdAsync(Guid certificadoAnaliseUId, CancellationToken cancellationToken = default);
         Task<CertificadoAnalise> BuscarCertificadoAnalisePeloUIdAsNoTrackingAsync(Guid certificadoAnaliseUId, CancellationToken cancellationToken = default);
         Task<List<EspecificacaoMetodologia>> BuscarEspecificacoesMetodologiaAsNoTrackingAsync(CancellationToken cancellationToken = default);
-        Task AdicionarFarmaceuticoResponsavelAsync(FarmaceuticoResponsavel farmaceuticoResponsavel, CancellationToken cancellationToken = default);
         Task AdicionarPhAsync(Ph ph, CancellationToken cancellationToken = default);
         Task AdicionarFerroAsync(Ferro ferro, CancellationToken cancellationToken = default);
         Task AdicionarTurbidezAsync(Turbidez turbidez, CancellationToken cancellationToken = default);

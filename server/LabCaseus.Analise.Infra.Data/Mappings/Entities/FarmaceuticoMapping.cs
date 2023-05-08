@@ -4,19 +4,19 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LabCaseus.Analise.Infra.Data.Mappings.Entities
 {
-    public class FarmaceuticoResponsavelMapping : IEntityTypeConfiguration<FarmaceuticoResponsavel>
+    public class FarmaceuticoMapping : IEntityTypeConfiguration<Farmaceutico>
     {
-        public void Configure(EntityTypeBuilder<FarmaceuticoResponsavel> builder)
+        public void Configure(EntityTypeBuilder<Farmaceutico> builder)
         {
             builder.HasKey(e => e.Id)
                 .IsClustered();
 
             builder.Property(e => e.Id)
-                .HasColumnName("cod_farmaceutico_responsavel")
+                .HasColumnName("cod_farmaceutico")
                 .ValueGeneratedOnAdd();
 
             builder.Property(e => e.UId)
-                .HasColumnName("uid_farmaceutico_responsavel")
+                .HasColumnName("uid_farmaceutico")
                 .HasColumnType("uniqueidentifier")
                 .IsRequired();
 
@@ -35,9 +35,9 @@ namespace LabCaseus.Analise.Infra.Data.Mappings.Entities
                 .HasMaxLength(30)
                 .IsRequired();
 
-            builder.ToTable("tb_farmaceutico_responsavel");
+            builder.ToTable("tb_farmaceutico");
 
-            builder.HasData(new FarmaceuticoResponsavel(1, "José Carlos de Almeida Junior", "Farmacêutico Bioquímico", "CRQ/MG 02419351"));
+            builder.HasData(new Farmaceutico(1, "José Carlos de Almeida Junior", "Farmacêutico Bioquímico", "CRQ/MG 02419351"));
         }
     }
 }

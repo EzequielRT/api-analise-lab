@@ -15,7 +15,7 @@ namespace LabCaseus.Analise.Infra.Data.Context
         public DbSet<CertificadoAnalise> CertificadosAnalises { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<EspecificacaoMetodologiaAnalise> EspecificacoesMetodologiaAnalise { get; set; }
-        public DbSet<FarmaceuticoResponsavel> FarmaceuticosResponsaveis { get; set; }
+        public DbSet<Farmaceutico> Farmaceuticos { get; set; }
         #endregion
 
         #region ValueObjects

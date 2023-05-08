@@ -25,4 +25,8 @@
     <ProjectReference Include="..\LabCaseus.Analise.Domain\LabCaseus.Analise.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
