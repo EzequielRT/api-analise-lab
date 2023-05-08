@@ -6,6 +6,7 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
 {
     public class RegistrarCertificadoAnaliseCommand : Command
     {
+        public Guid CertificadoAnaliseUId { get; private set; }
         public string Numero { get; set; }
         public string Amostra { get; set; }
         public string LocalColeta { get; set; }
@@ -16,118 +17,128 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
         public DateTime DataHoraInicioAnalise { get; set; }
         public DateTime DataHoraTerminoAnalise { get; set; }
         public string ParecerFarmaceutico { get; set; }
-
         public ClienteInputModel Cliente { get; set; }
         public FarmaceuticoResponsavelInputModel FarmaceuticoResponsavel { get; set; }
+        public AnaliseFisicoQuimicaInputModel AnaliseFisicoQuimica { get; set; }
+        public AnaliseMicrobiologicaInputModel AnaliseMicrobiologica { get; set; }
+        public List<Guid> EspecificacoesMetodologiasAnaliseUId { get; set; }
 
-        public PhInputModel PhInputModel { get; set; }
-        public FerroInputModel FerroInputModel { get; set; }
-        public TurbidezInputModel TurbidezInputModel { get; set; }
-        public CloretoInputModel CloretoInputModel { get; set; }
-        public CorAparenteInputModel CorAparenteInputModel { get; set; }
-        public AspectoVisualInputModel AspectoVisualInputModel { get; set; }
-        public CloroResidualLivreInputModel CloroResidualLivreInputModel { get; set; }
-        public SolidosTotaisDissolvidosInputModel SolidosTotaisDissolvidosInputModel { get; set; }
-        public ColiformeTermotoleranteInputModel ColiformeTermotoleranteInputModel { get; set; }
-        public int[] EspecificacaoMetodologiaAnalise { get; set; }
+        public void SetCertificadoAnaliseUId(Guid certificadoAnaliseUId) => CertificadoAnaliseUId = certificadoAnaliseUId;
     }
 
-    public class ColiformeTermotoleranteInputModel
+    public class AnaliseFisicoQuimicaInputModel
     {
-        public string Especificacao { get; set; }
-        public string Resultado { get; set; }
+        public PhInputModel Ph { get; set; }
+        public FerroInputModel Ferro { get; set; }
+        public TurbidezInputModel Turbidez { get; set; }
+        public CloretoInputModel Cloreto { get; set; }
+        public CorAparenteInputModel CorAparente { get; set; }
+        public AspectoVisualInputModel AspectoVisual { get; set; }
+        public CloroResidualLivreInputModel CloroResidualLivre { get; set; }
+        public SolidosTotaisDissolvidosInputModel SolidosTotaisDissolvidos { get; set; }
 
-        public ColiformeTermotolerante ToEntity()
+        public class SolidosTotaisDissolvidosInputModel
         {
-            return new ColiformeTermotolerante(Especificacao, Resultado);
+            public string Especificacao { get; set; }
+            public string Resultado { get; set; }
+
+            public SolidosTotaisDissolvidos ToEntity()
+            {
+                return new SolidosTotaisDissolvidos(Especificacao, Resultado);
+            }
+        }
+
+        public class CloroResidualLivreInputModel
+        {
+            public string Especificacao { get; set; }
+            public string Resultado { get; set; }
+
+            public CloroResidualLivre ToEntity()
+            {
+                return new CloroResidualLivre(Especificacao, Resultado);
+            }
+        }
+
+        public class AspectoVisualInputModel
+        {
+            public string Especificacao { get; set; }
+            public string Resultado { get; set; }
+
+            public AspectoVisual ToEntity()
+            {
+                return new AspectoVisual(Especificacao, Resultado);
+            }
+        }
+
+        public class CorAparenteInputModel
+        {
+            public string Especificacao { get; set; }
+            public string Resultado { get; set; }
+
+            public CorAparente ToEntity()
+            {
+                return new CorAparente(Especificacao, Resultado);
+            }
+        }
+
+        public class CloretoInputModel
+        {
+            public string Especificacao { get; set; }
+            public string Resultado { get; set; }
+
+            public Cloreto ToEntity()
+            {
+                return new Cloreto(Especificacao, Resultado);
+            }
+        }
+
+        public class TurbidezInputModel
+        {
+            public string Especificacao { get; set; }
+            public string Resultado { get; set; }
+
+            public Turbidez ToEntity()
+            {
+                return new Turbidez(Especificacao, Resultado);
+            }
+        }
+
+        public class FerroInputModel
+        {
+            public string Especificacao { get; set; }
+            public string Resultado { get; set; }
+
+            public Ferro ToEntity()
+            {
+                return new Ferro(Especificacao, Resultado);
+            }
+        }
+
+        public class PhInputModel
+        {
+            public string Especificacao { get; set; }
+            public string Resultado { get; set; }
+
+            public Ph ToEntity()
+            {
+                return new Ph(Especificacao, Resultado);
+            }
         }
     }
 
-    public class SolidosTotaisDissolvidosInputModel
+    public class AnaliseMicrobiologicaInputModel
     {
-        public string Especificacao { get; set; }
-        public string Resultado { get; set; }
+        public ColiformeTermotoleranteInputModel ColiformeTermotolerante { get; set; }
 
-        public SolidosTotaisDissolvidos ToEntity()
+        public class ColiformeTermotoleranteInputModel
         {
-            return new SolidosTotaisDissolvidos(Especificacao, Resultado);
-        }
-    }
+            public string Especificacao { get; set; }
+            public string Resultado { get; set; }
 
-    public class CloroResidualLivreInputModel
-    {
-        public string Especificacao { get; set; }
-        public string Resultado { get; set; }
-
-        public CloroResidualLivre ToEntity()
-        {
-            return new CloroResidualLivre(Especificacao, Resultado);
-        }
-    }
-
-    public class AspectoVisualInputModel
-    {
-        public string Especificacao { get; set; }
-        public string Resultado { get; set; }
-
-        public AspectoVisual ToEntity()
-        {
-            return new AspectoVisual(Especificacao, Resultado);
-        }
-    }
-
-    public class CorAparenteInputModel
-    {
-        public string Especificacao { get; set; }
-        public string Resultado { get; set; }
-
-        public CorAparente ToEntity()
-        {
-            return new CorAparente(Especificacao, Resultado);
-        }
-    }
-
-    public class CloretoInputModel
-    {
-        public string Especificacao { get; set; }
-        public string Resultado { get; set; }
-
-        public Cloreto ToEntity()
-        {
-            return new Cloreto(Especificacao, Resultado);
-        }
-    }
-
-    public class TurbidezInputModel
-    {
-        public string Especificacao { get; set; }
-        public string Resultado { get; set; }
-
-        public Turbidez ToEntity()
-        {
-            return new Turbidez(Especificacao, Resultado);
-        }
-    }
-
-    public class FerroInputModel
-    {
-        public string Especificacao { get; set; }
-        public string Resultado { get; set; }
-
-        public Ferro ToEntity()
-        {
-            return new Ferro(Especificacao, Resultado);
-        }
-    }
-
-    public class PhInputModel
-    {
-        public string Especificacao { get; set; }
-        public string Resultado { get; set; }
-
-        public Ph ToEntity()
-        {
-            return new Ph(Especificacao, Resultado);
+            public ColiformeTermotolerante ToEntity()
+            {
+                return new ColiformeTermotolerante(Especificacao, Resultado);
+            }
         }
     }
 

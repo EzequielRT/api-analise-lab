@@ -10,11 +10,16 @@ namespace LabCaseus.Analise.Infra.Data.UoW
         private IDbContextTransaction _transaction;
 
         public ICertificadoAnaliseRepository CertificadosAnalises { get; }
+        public IClienteRepository Clientes { get; }
 
-        public UnitOfWork(ApplicationDbContext context, ICertificadoAnaliseRepository certificadoAnaliseRepository)
+        public UnitOfWork(
+            ApplicationDbContext context,
+            ICertificadoAnaliseRepository certificadoAnaliseRepository,
+            IClienteRepository _clienteRepository)
         {
             _context = context;
             CertificadosAnalises = certificadoAnaliseRepository;
+            Clientes = _clienteRepository;
         }
 
         public async Task<bool> CompleteAsync()

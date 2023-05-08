@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise;
 using LabCaseus.Analise.Application.Queries.BuscarTodosCertificadosAnalise;
 using LabCaseus.Analise.Application.Queries.BuscarCertificadoAnalisePeloUId;
+using LabCaseus.Analise.Domain.Repositories;
 
 namespace LabCaseus.Analise.Api.Controllers
 {
@@ -14,13 +15,16 @@ namespace LabCaseus.Analise.Api.Controllers
     public class AnaliseController : ApiController
     {
         private readonly IMediatorHandler _mediator;
+        private readonly ICertificadoAnaliseRepository _certificadoAnaliseRepository;
 
         public AnaliseController(
              ILogger<AnaliseController> logger,
              INotificationHandler<DomainNotification> notifications,
-             IMediatorHandler mediator) : base(logger, notifications)
+             IMediatorHandler mediator,
+             ICertificadoAnaliseRepository certificadoAnaliseRepository) : base(logger, notifications)
         {
             _mediator = mediator;
+            _certificadoAnaliseRepository = certificadoAnaliseRepository;
         }
 
         [HttpPost]
@@ -29,7 +33,7 @@ namespace LabCaseus.Analise.Api.Controllers
         {
             await _mediator.SendCommand(command, cancellationToken);
 
-            return ResponseApiCreatedAtAction(nameof(BuscarCertificadoAnalisePeloUId), new { certificadoAnaliseUId = command }, command);
+            return ResponseApiCreatedAtAction(nameof(BuscarCertificadoAnalisePeloUId), new { certificadoAnaliseUId = command.CertificadoAnaliseUId }, command);
         }
 
         [HttpGet]
@@ -54,6 +58,13 @@ namespace LabCaseus.Analise.Api.Controllers
             if (query.GetResponse() == null) return ResponseApiNotFound();
 
             return ResponseApiOk(query.GetResponse());
+        }
+
+        [HttpGet]
+        [Route("certificados-analises/buscar-especificacoes-metodologias")]
+        public async Task<ActionResult> BuscarEspecificacoesMetodologia(CancellationToken cancellationToken)
+        {
+            return ResponseApiOk(await _certificadoAnaliseRepository.BuscarEspecificacoesMetodologiaAsNoTrackingAsync(cancellationToken));
         }
     }
 }

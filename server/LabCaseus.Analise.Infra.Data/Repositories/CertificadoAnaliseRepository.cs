@@ -1,5 +1,6 @@
 ﻿using LabCaseus.Analise.Domain.Entities;
 using LabCaseus.Analise.Domain.Repositories;
+using LabCaseus.Analise.Domain.ValueObjects;
 using LabCaseus.Analise.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -104,6 +105,30 @@ namespace LabCaseus.Analise.Infra.Data.Repositories
                 .ToListAsync(cancellationToken);
 
             return certificadosAnalise;
+        }
+
+        public async Task<List<EspecificacaoMetodologia>> BuscarEspecificacoesMetodologiaAsNoTrackingAsync(CancellationToken cancellationToken = default)
+        {
+            var especificacoesMetodologia = await _context.EspecificacoesMetodologias
+               .AsNoTracking()
+               .ToListAsync(cancellationToken);
+
+            return especificacoesMetodologia;
+        }
+
+        public async Task AdicionarFarmaceuticoResponsavelAsync(FarmaceuticoResponsavel farmaceuticoResponsavel, CancellationToken cancellationToken = default)
+        {
+            await _context.FarmaceuticosResponsaveis.AddAsync(farmaceuticoResponsavel, cancellationToken);
+        }
+
+        public async Task AdicionarPhAsync(Ph ph, CancellationToken cancellationToken = default)
+        {
+            await _context.Phs.AddAsync(ph, cancellationToken);
+        }
+
+        public async Task AdicionarFerroAsync(Ferro ferro, CancellationToken cancellationToken = default)
+        {
+            await _context.Ferros.AddAsync(ferro, cancellationToken);
         }
     }
 }

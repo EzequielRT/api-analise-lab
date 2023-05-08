@@ -49,36 +49,32 @@ namespace LabCaseus.Analise.Application.DTOs
         }
     }
 
-    public class EspecificacaoMetodologiaAnaliseViewModel
+    public class ClienteViewModel
     {
-        public EspecificacaoMetodologiaAnaliseViewModel(EspecificacaoMetodologiaAnalise entity)
+        public ClienteViewModel(Cliente cliente)
         {
-            Descricao = entity.EspecificacaoMetodologia.Descricao;
+            RazaoSocial = cliente.RazaoSocial;
+            Cnpj = cliente.Cnpj;
+            Endereco = cliente.Endereco;
         }
 
-        public string Descricao { get; set; }
+        public string RazaoSocial { get; private set; }
+        public string Cnpj { get; private set; }
+        public string Endereco { get; private set; }
     }
 
-    public class AnaliseMicrobiologicaViewModel
+    public class FarmaceuticoResponsavelViewModel
     {
-        public AnaliseMicrobiologicaViewModel(AnaliseMicrobiologica entity)
+        public FarmaceuticoResponsavelViewModel(FarmaceuticoResponsavel farmaceuticoResponsavel)
         {
-            ColiformesTermotolerantes = new ColiformeTermotoleranteViewModel(entity.ColiformeTermotolerante);
+            FarmaceuticoNome = farmaceuticoResponsavel.FarmaceuticoNome;
+            FarmaceuticoEspecialidade = farmaceuticoResponsavel.FarmaceuticoEspecialidade;
+            FarmaceuticoRegistroCrq = farmaceuticoResponsavel.FarmaceuticoRegistroCrq;
         }
 
-        public ColiformeTermotoleranteViewModel ColiformesTermotolerantes { get; set; }
-    }
-
-    public class ColiformeTermotoleranteViewModel
-    {
-        public ColiformeTermotoleranteViewModel(ColiformeTermotolerante entity)
-        {
-            Especificacao = entity.Especificacao;
-            Resultado = entity.Resultado;
-        }
-
-        public string Especificacao { get; private set; }
-        public string Resultado { get; private set; }
+        public string FarmaceuticoNome { get; private set; }
+        public string FarmaceuticoEspecialidade { get; private set; }
+        public string FarmaceuticoRegistroCrq { get; private set; }
     }
 
     public class AnaliseFisicoQuimicaViewModel
@@ -103,129 +99,134 @@ namespace LabCaseus.Analise.Application.DTOs
         public AspectoVisualViewModel AspectoVisual { get; set; }
         public CloroResidualLivreViewModel CloroResidualLivre { get; set; }
         public SolidosTotaisDissolvidosViewModel SolidosTotaisDissolvidos { get; set; }
-    }
 
-    public class SolidosTotaisDissolvidosViewModel
-    {
-        public SolidosTotaisDissolvidosViewModel(SolidosTotaisDissolvidos entity)
+        public class SolidosTotaisDissolvidosViewModel
         {
-            Especificacao = entity.Especificacao;
-            Resultado = entity.Resultado;
+            public SolidosTotaisDissolvidosViewModel(SolidosTotaisDissolvidos entity)
+            {
+                Especificacao = entity.Especificacao;
+                Resultado = entity.Resultado;
+            }
+
+            public string Especificacao { get; private set; }
+            public string Resultado { get; private set; }
         }
 
-        public string Especificacao { get; private set; }
-        public string Resultado { get; private set; }
-    }
-
-    public class CloroResidualLivreViewModel
-    {
-        public CloroResidualLivreViewModel(CloroResidualLivre entity)
+        public class CloroResidualLivreViewModel
         {
-            Especificacao = entity.Especificacao;
-            Resultado = entity.Resultado;
+            public CloroResidualLivreViewModel(CloroResidualLivre entity)
+            {
+                Especificacao = entity.Especificacao;
+                Resultado = entity.Resultado;
+            }
+
+            public string Especificacao { get; private set; }
+            public string Resultado { get; private set; }
         }
 
-        public string Especificacao { get; private set; }
-        public string Resultado { get; private set; }
-    }
-
-    public class AspectoVisualViewModel
-    {
-        public AspectoVisualViewModel(AspectoVisual entity)
+        public class AspectoVisualViewModel
         {
-            Especificacao = entity.Especificacao;
-            Resultado = entity.Resultado;
+            public AspectoVisualViewModel(AspectoVisual entity)
+            {
+                Especificacao = entity.Especificacao;
+                Resultado = entity.Resultado;
+            }
+
+            public string Especificacao { get; private set; }
+            public string Resultado { get; private set; }
         }
 
-        public string Especificacao { get; private set; }
-        public string Resultado { get; private set; }
-    }
-
-    public class CorAparenteViewModel
-    {
-        public CorAparenteViewModel(CorAparente entity)
+        public class CorAparenteViewModel
         {
-            Especificacao = entity.Especificacao;
-            Resultado = entity.Resultado;
+            public CorAparenteViewModel(CorAparente entity)
+            {
+                Especificacao = entity.Especificacao;
+                Resultado = entity.Resultado;
+            }
+
+            public string Especificacao { get; private set; }
+            public string Resultado { get; private set; }
         }
 
-        public string Especificacao { get; private set; }
-        public string Resultado { get; private set; }
-    }
-
-    public class CloretoViewModel
-    {
-        public CloretoViewModel(Cloreto entity)
+        public class CloretoViewModel
         {
-            Especificacao = entity.Especificacao;
-            Resultado = entity.Resultado;
+            public CloretoViewModel(Cloreto entity)
+            {
+                Especificacao = entity.Especificacao;
+                Resultado = entity.Resultado;
+            }
+
+            public string Especificacao { get; private set; }
+            public string Resultado { get; private set; }
         }
 
-        public string Especificacao { get; private set; }
-        public string Resultado { get; private set; }
-    }
-
-    public class TurbidezViewModel
-    {
-        public TurbidezViewModel(Turbidez entity)
+        public class TurbidezViewModel
         {
-            Especificacao = entity.Especificacao;
-            Resultado = entity.Resultado;
+            public TurbidezViewModel(Turbidez entity)
+            {
+                Especificacao = entity.Especificacao;
+                Resultado = entity.Resultado;
+            }
+
+            public string Especificacao { get; private set; }
+            public string Resultado { get; private set; }
         }
 
-        public string Especificacao { get; private set; }
-        public string Resultado { get; private set; }
-    }
-
-    public class FerroViewModel
-    {
-        public FerroViewModel(Ferro entity)
+        public class FerroViewModel
         {
-            Especificacao = entity.Especificacao;
-            Resultado = entity.Resultado;
+            public FerroViewModel(Ferro entity)
+            {
+                Especificacao = entity.Especificacao;
+                Resultado = entity.Resultado;
+            }
+
+            public string Especificacao { get; private set; }
+            public string Resultado { get; private set; }
         }
 
-        public string Especificacao { get; private set; }
-        public string Resultado { get; private set; }
+        public class PhViewModel
+        {
+            public PhViewModel(Ph entity)
+            {
+                Especificacao = entity.Especificacao;
+                Resultado = entity.Resultado;
+            }
+
+            public string Especificacao { get; private set; }
+            public string Resultado { get; private set; }
+        }
     }
 
-    public class PhViewModel
+    public class AnaliseMicrobiologicaViewModel
     {
-        public PhViewModel(Ph entity)
+        public AnaliseMicrobiologicaViewModel(AnaliseMicrobiologica entity)
         {
-            Especificacao = entity.Especificacao;
-            Resultado = entity.Resultado;
+            ColiformesTermotolerantes = new ColiformeTermotoleranteViewModel(entity.ColiformeTermotolerante);
         }
 
-        public string Especificacao { get; private set; }
-        public string Resultado { get; private set; }
+        public ColiformeTermotoleranteViewModel ColiformesTermotolerantes { get; set; }
+
+        public class ColiformeTermotoleranteViewModel
+        {
+            public ColiformeTermotoleranteViewModel(ColiformeTermotolerante entity)
+            {
+                Especificacao = entity.Especificacao;
+                Resultado = entity.Resultado;
+            }
+
+            public string Especificacao { get; private set; }
+            public string Resultado { get; private set; }
+        }
     }
 
-    public class FarmaceuticoResponsavelViewModel
+    public class EspecificacaoMetodologiaAnaliseViewModel
     {
-        public FarmaceuticoResponsavelViewModel(FarmaceuticoResponsavel farmaceuticoResponsavel)
+        public EspecificacaoMetodologiaAnaliseViewModel(EspecificacaoMetodologiaAnalise entity)
         {
-            FarmaceuticoNome = farmaceuticoResponsavel.FarmaceuticoNome;
-            FarmaceuticoEspecialidade = farmaceuticoResponsavel.FarmaceuticoEspecialidade;
-            FarmaceuticoRegistroCrq = farmaceuticoResponsavel.FarmaceuticoRegistroCrq;
+            Descricao = entity.EspecificacaoMetodologia.Descricao;
         }
 
-        public string FarmaceuticoNome { get; private set; }
-        public string FarmaceuticoEspecialidade { get; private set; }
-        public string FarmaceuticoRegistroCrq { get; private set; }
+        public string Descricao { get; set; }
     }
 
-    public class ClienteViewModel
-    {
-        public ClienteViewModel(Cliente cliente)
-        {
-            RazaoSocial = cliente.RazaoSocial;
-            Cnpj = cliente.Cnpj;
-            Endereco = cliente.Endereco;
-        }
-
-        public string RazaoSocial { get; private set; }
-        public string Cnpj { get; private set; }
-        public string Endereco { get; private set; }
-    }
 }
