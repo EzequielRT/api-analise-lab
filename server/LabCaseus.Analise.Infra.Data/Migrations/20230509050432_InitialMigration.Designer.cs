@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LabCaseus.Analise.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230508081749_InitialMigration")]
+    [Migration("20230509050432_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -20,6 +20,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("dbo")
                 .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -97,7 +98,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     b.HasIndex("TurbidezId");
 
-                    b.ToTable("tb_analise_fisico_quimica", (string)null);
+                    b.ToTable("tb_analise_fisico_quimica", "dbo");
 
                     b.HasData(
                         new
@@ -112,7 +113,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             PhId = 1,
                             SolidosTotaisDissolvidosId = 1,
                             TurbidezId = 1,
-                            UId = new Guid("b88e3474-33da-4487-9820-f2b8ac26a8bc")
+                            UId = new Guid("1b3cb229-f008-40d7-8e19-34af0fa08bc5")
                         });
                 });
 
@@ -146,7 +147,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     b.HasIndex("ColiformeTermotoleranteId");
 
-                    b.ToTable("tb_analise_microbiologica", (string)null);
+                    b.ToTable("tb_analise_microbiologica", "dbo");
 
                     b.HasData(
                         new
@@ -154,7 +155,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             CertificadoAnaliseId = 1,
                             ColiformeTermotoleranteId = 1,
-                            UId = new Guid("a7369928-a966-4a8a-bbc7-d7d4e7fd1c15")
+                            UId = new Guid("cbc1daa2-176e-438b-95d5-9345711bb761")
                         });
                 });
 
@@ -239,7 +240,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     b.HasIndex("FarmaceuticoResponsavelId");
 
-                    b.ToTable("tb_certificado_analise", null, t =>
+                    b.ToTable("tb_certificado_analise", "dbo", t =>
                         {
                             t.HasTrigger("Trg_tb_certificado_analise_Insert");
                         });
@@ -259,7 +260,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             LocalColeta = "Piscina Grande",
                             ParecerFarmaceutico = "A amostra analisada atende às especificações descritas.",
                             ResponsavelColeta = "Aparecida Amadeu",
-                            UId = new Guid("91212d98-fbda-4906-a6f1-b1e09a106505")
+                            UId = new Guid("02eb459d-c4b2-44ef-b2ad-b92964c4ec8f")
                         });
                 });
 
@@ -298,7 +299,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.ToTable("tb_cliente", (string)null);
+                    b.ToTable("tb_cliente", "dbo");
 
                     b.HasData(
                         new
@@ -307,7 +308,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Cnpj = "19.532.464/0001-77",
                             Endereco = "Avenida Cel. Antônio Augusto de Souza 49 - Cataguases - MG",
                             RazaoSocial = "Clube do Remo",
-                            UId = new Guid("f9acee48-bf52-4920-8ba2-315f4c62b44d")
+                            UId = new Guid("d6b1697d-1a64-4572-9607-11ec3e4a028f")
                         });
                 });
 
@@ -340,7 +341,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     b.HasIndex("EspecificacaoMetodologiaId");
 
-                    b.ToTable("tb_especificacao_metodologia_analise", (string)null);
+                    b.ToTable("tb_especificacao_metodologia_analise", "dbo");
 
                     b.HasData(
                         new
@@ -348,14 +349,14 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             CertificadoAnaliseId = 1,
                             EspecificacaoMetodologiaId = 1,
-                            UId = new Guid("b84daa3b-eed9-400a-a610-e347e6979098")
+                            UId = new Guid("00f270ee-b3ce-4839-8ce1-1d86b7452827")
                         },
                         new
                         {
                             Id = 2,
                             CertificadoAnaliseId = 1,
                             EspecificacaoMetodologiaId = 2,
-                            UId = new Guid("eb6ed0f2-d8bf-4443-9f30-0d51bd51d116")
+                            UId = new Guid("c639b772-fec2-4c09-81e9-0d13bc195560")
                         });
                 });
 
@@ -394,7 +395,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.ToTable("tb_farmaceutico", (string)null);
+                    b.ToTable("tb_farmaceutico", "dbo");
 
                     b.HasData(
                         new
@@ -403,7 +404,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             FarmaceuticoEspecialidade = "Farmacêutico Bioquímico",
                             FarmaceuticoNome = "José Carlos de Almeida Junior",
                             FarmaceuticoRegistroCrq = "CRQ/MG 02419351",
-                            UId = new Guid("fdedab3f-9899-4a80-9f7a-65a376c52541")
+                            UId = new Guid("53c5caa2-a8d4-492c-9d33-24cd0633957f")
                         });
                 });
 
@@ -436,7 +437,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.ToTable("tb_aspecto_visual", (string)null);
+                    b.ToTable("tb_aspecto_visual", "dbo");
 
                     b.HasData(
                         new
@@ -444,7 +445,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Ausência de floração de algas ou outros organismos",
                             Resultado = "De acordo",
-                            UId = new Guid("cb9f5919-5b1a-4c62-a4fd-b56c21f2aba0")
+                            UId = new Guid("de63598c-b476-4178-99a6-64fecdeb3e1d")
                         });
                 });
 
@@ -477,7 +478,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.ToTable("tb_cloreto", (string)null);
+                    b.ToTable("tb_cloreto", "dbo");
 
                     b.HasData(
                         new
@@ -485,7 +486,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Máximo 250 mg/L",
                             Resultado = "31,8 mg/L",
-                            UId = new Guid("b41718eb-b135-44c8-9ecb-b35543af4832")
+                            UId = new Guid("53283ffa-a07c-4f86-95b8-8f156e863455")
                         });
                 });
 
@@ -518,7 +519,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.ToTable("tb_cloro_residual_livre", (string)null);
+                    b.ToTable("tb_cloro_residual_livre", "dbo");
 
                     b.HasData(
                         new
@@ -526,7 +527,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Mínimo 1,0 mg/L",
                             Resultado = "4,2 mg/L",
-                            UId = new Guid("9278a5a5-dd32-49c5-800b-5f8be676705b")
+                            UId = new Guid("377cfe56-45e4-48cd-ba02-c3df9fde66e9")
                         });
                 });
 
@@ -559,7 +560,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.ToTable("tb_coliforme_termotolerante", (string)null);
+                    b.ToTable("tb_coliforme_termotolerante", "dbo");
 
                     b.HasData(
                         new
@@ -567,7 +568,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Máximo 2500 UFC/mL",
                             Resultado = "<1,0 x 10¹ UFC/mL est",
-                            UId = new Guid("b05ba693-4e4e-4f34-a820-39804ab2a0bd")
+                            UId = new Guid("e8311341-6e20-45cd-8a0d-fcdbb7a664e2")
                         });
                 });
 
@@ -600,7 +601,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.ToTable("tb_cor_aparente", (string)null);
+                    b.ToTable("tb_cor_aparente", "dbo");
 
                     b.HasData(
                         new
@@ -608,7 +609,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Máximo 75 uH",
                             Resultado = "0,0 uH",
-                            UId = new Guid("8bd84850-edf1-4f52-bebc-27c4e4d5efe0")
+                            UId = new Guid("202c2b11-9c6d-4140-9531-a5fa77952df4")
                         });
                 });
 
@@ -635,20 +636,20 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.ToTable("tb_especificacao_metodologia", (string)null);
+                    b.ToTable("tb_especificacao_metodologia", "dbo");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Descricao = "Resolução CONAMA nº 274 de 29 de novembro de 2000.",
-                            UId = new Guid("b46f591f-491c-4788-ace4-85b1ca1b719e")
+                            UId = new Guid("c5390f05-abb7-4548-a406-47868039e345")
                         },
                         new
                         {
                             Id = 2,
                             Descricao = "Standard Methods for the Examination of Water and Wastewater - American Public Health Association (APHA).",
-                            UId = new Guid("cabba55e-4e1c-43c3-9e39-6e1b186e8d78")
+                            UId = new Guid("d22fe98e-f477-469a-ad05-f847b44b0722")
                         });
                 });
 
@@ -681,7 +682,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.ToTable("tb_ferro", (string)null);
+                    b.ToTable("tb_ferro", "dbo");
 
                     b.HasData(
                         new
@@ -689,7 +690,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Máximo 0,3 mg/L",
                             Resultado = "0,0 mg/L",
-                            UId = new Guid("8a6ac95c-6dbc-4678-bc5c-4bc405900f05")
+                            UId = new Guid("345a0eec-3e25-4101-9bbf-71b09b9025b3")
                         });
                 });
 
@@ -722,7 +723,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.ToTable("tb_ph", (string)null);
+                    b.ToTable("tb_ph", "dbo");
 
                     b.HasData(
                         new
@@ -730,7 +731,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "0,6 a 0,9",
                             Resultado = "7,8",
-                            UId = new Guid("48f5f878-bdd8-45df-b736-7ea8b6d579fe")
+                            UId = new Guid("6cba07c6-5e26-4d70-bc92-0d3858364966")
                         });
                 });
 
@@ -763,7 +764,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.ToTable("tb_solidos_totais_dissolvidos", (string)null);
+                    b.ToTable("tb_solidos_totais_dissolvidos", "dbo");
 
                     b.HasData(
                         new
@@ -771,7 +772,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Máximo 500 mg/L",
                             Resultado = "229,0 mg/L",
-                            UId = new Guid("9cce2c76-2055-418f-be81-57711813b693")
+                            UId = new Guid("7bea91a4-bffc-4729-bea6-eda5d4646d6d")
                         });
                 });
 
@@ -804,7 +805,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.ToTable("tb_turbidez", (string)null);
+                    b.ToTable("tb_turbidez", "dbo");
 
                     b.HasData(
                         new
@@ -812,7 +813,7 @@ namespace LabCaseus.Analise.Infra.Data.Migrations
                             Id = 1,
                             Especificacao = "Máximo 40 uT",
                             Resultado = "0,8 uT",
-                            UId = new Guid("29d88302-00d6-4c28-9755-2f0ebb3b6a24")
+                            UId = new Guid("042d0fe0-02cf-408e-ac10-5e842995b752")
                         });
                 });
 

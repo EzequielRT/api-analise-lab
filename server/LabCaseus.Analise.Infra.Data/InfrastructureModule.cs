@@ -2,6 +2,7 @@
 using LabCaseus.Analise.Infra.Data.Context;
 using LabCaseus.Analise.Infra.Data.Repositories;
 using LabCaseus.Analise.Infra.Data.UoW;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +31,11 @@ namespace LabCaseus.Analise.Infra.Data
                 .UseSqlServer(connectionString)
                 .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole())));
 
+            services.AddDbContext<UserDbContext>(options =>
+            options
+                .UseSqlServer(connectionString)
+                .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole())));
+
             // Banco Sqlite para testes
             //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=LabCaseusDbSqlite.db"));
 
@@ -50,6 +56,6 @@ namespace LabCaseus.Analise.Infra.Data
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
-        }
+        }        
     }
 }

@@ -7,13 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Enums\**" />
     <Compile Remove="Mediator\**" />
+    <EmbeddedResource Remove="Enums\**" />
     <EmbeddedResource Remove="Mediator\**" />
+    <None Remove="Enums\**" />
     <None Remove="Mediator\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Enums\" />
   </ItemGroup>
 
 </Project>

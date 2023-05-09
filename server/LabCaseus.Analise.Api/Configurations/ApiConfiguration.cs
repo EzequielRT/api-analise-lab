@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using System.Text.Json.Serialization;
 
 namespace LabCaseus.Analise.Api.Configurations
 {
     public static class ApiConfiguration
     {
-        public static void AddApiConfig(this IServiceCollection services)
+        public static void AddApiConfig(this IServiceCollection services, IConfiguration configuration)
         {
             services
                 .AddMvcCore(o =>
@@ -26,7 +29,29 @@ namespace LabCaseus.Analise.Api.Configurations
                                 .AllowAnyMethod()
                                 .AllowAnyHeader());
                 })
+                .AddAuthorization()
                 .AddFormatterMappings();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.SaveToken = true;
+                x.RequireHttpsMetadata = false;
+                x.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = false,
+                    ValidateLifetime = false,
+                    ValidateIssuerSigningKey = true,
+                    ValidAudience = configuration["JWT:ValidAudience"],
+                    ValidIssuer = configuration["JWT:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
+                };
+            });
 
             services.AddApiVersioning(options =>
             {
@@ -46,7 +71,9 @@ namespace LabCaseus.Analise.Api.Configurations
         {
             app.UseCors("All");
             app.UseHttpsRedirection();
-            app.UseRouting();    
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.MapControllers();
         }
     }

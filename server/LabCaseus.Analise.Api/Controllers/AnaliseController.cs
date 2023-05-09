@@ -1,11 +1,13 @@
-﻿using LabCaseus.Analise.Application.Mediator.Notifications;
+﻿using LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise;
 using LabCaseus.Analise.Application.Mediator;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise;
-using LabCaseus.Analise.Application.Queries.BuscarTodosCertificadosAnalise;
+using LabCaseus.Analise.Application.Mediator.Notifications;
 using LabCaseus.Analise.Application.Queries.BuscarCertificadoAnalisePeloUId;
+using LabCaseus.Analise.Application.Queries.BuscarTodosCertificadosAnalise;
+using LabCaseus.Analise.Domain;
 using LabCaseus.Analise.Domain.Repositories;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LabCaseus.Analise.Api.Controllers
 {
@@ -25,7 +27,7 @@ namespace LabCaseus.Analise.Api.Controllers
              IMediatorHandler mediator,
              ICertificadoAnaliseRepository certificadoAnaliseRepository,
              IFarmaceuticoRepository farmaceuticoRepository,
-             IClienteRepository clienteRepository) : base(logger, notifications)
+             IClienteRepository clienteRepository): base(logger, notifications)
         {
             _mediator = mediator;
             _certificadoAnaliseRepository = certificadoAnaliseRepository;
@@ -35,16 +37,18 @@ namespace LabCaseus.Analise.Api.Controllers
 
         [HttpPost]
         [Route("certificados-analises/registrar")]
-        public async Task<ActionResult> RegistrarCertificadoAnalise([FromBody] RegistrarCertificadoAnaliseCommand command, CancellationToken cancellationToken)
+        [Authorize(Roles = UserRoles.Admin)]
+        public async Task<ActionResult> RegistrarCertificadoAnaliseAsync([FromBody] RegistrarCertificadoAnaliseCommand command, CancellationToken cancellationToken)
         {
             await _mediator.SendCommand(command, cancellationToken);
 
-            return ResponseApiCreatedAtAction(nameof(BuscarCertificadoAnalisePeloUId), new { certificadoAnaliseUId = command.CertificadoAnaliseUId }, command);
+            return ResponseApiCreatedAtAction(nameof(BuscarCertificadoAnalisePeloUIdAsync), new { certificadoAnaliseUId = command.CertificadoAnaliseUId }, command);
         }
 
         [HttpGet]
         [Route("certificados-analises/buscar-todos")]
-        public async Task<ActionResult> BuscarTodosCertificadosAnalise(CancellationToken cancellationToken)
+        [Authorize]
+        public async Task<ActionResult> BuscarTodosCertificadosAnaliseAsync(CancellationToken cancellationToken)
         {
             var query = new BuscarTodosCertificadosAnaliseQuery();
 
@@ -55,7 +59,8 @@ namespace LabCaseus.Analise.Api.Controllers
 
         [HttpGet]
         [Route("certificados-analises/buscar-pelo-uid/{certificadoAnaliseUId}")]
-        public async Task<ActionResult> BuscarCertificadoAnalisePeloUId([FromRoute] Guid certificadoAnaliseUId, CancellationToken cancellationToken)
+        [Authorize]
+        public async Task<ActionResult> BuscarCertificadoAnalisePeloUIdAsync([FromRoute] Guid certificadoAnaliseUId, CancellationToken cancellationToken)
         {
             var query = new BuscarCertificadoAnalisePeloUIdQuery(certificadoAnaliseUId);
 
@@ -68,21 +73,24 @@ namespace LabCaseus.Analise.Api.Controllers
 
         [HttpGet]
         [Route("certificados-analises/buscar-especificacoes-metodologias")]
-        public async Task<ActionResult> BuscarEspecificacoesMetodologia(CancellationToken cancellationToken)
+        [Authorize]
+        public async Task<ActionResult> BuscarEspecificacoesMetodologiaAsync(CancellationToken cancellationToken)
         {
             return ResponseApiOk(await _certificadoAnaliseRepository.BuscarEspecificacoesMetodologiaAsNoTrackingAsync(cancellationToken));
         }
 
         [HttpGet]
         [Route("certificados-analises/buscar-farmaceuticos")]
-        public async Task<ActionResult> BuscarFarmaceuticosResponsaveis(CancellationToken cancellationToken)
+        [Authorize]
+        public async Task<ActionResult> BuscarFarmaceuticosResponsaveisAsync(CancellationToken cancellationToken)
         {
             return ResponseApiOk(await _farmaceuticoRepository.BuscarFarmaceuticosAsNoTrackingAsync(cancellationToken));
         }
 
         [HttpGet]
         [Route("certificados-analises/buscar-clientes")]
-        public async Task<ActionResult> BuscarClientes(CancellationToken cancellationToken)
+        [Authorize]
+        public async Task<ActionResult> BuscarClientesAsync(CancellationToken cancellationToken)
         {
             return ResponseApiOk(await _clienteRepository.BuscarClientesAsNoTrackingAsync(cancellationToken));
         }

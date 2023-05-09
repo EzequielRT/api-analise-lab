@@ -1,16 +1,39 @@
-﻿namespace LabCaseus.Analise.Api.Configurations
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
+
+namespace LabCaseus.Analise.Api.Configurations
 {
     public static class SwaggerConfiguration
     {
-        public static void AddSwaggerConfig(this IServiceCollection services)
+        public static void AddSwaggerConfig(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSwaggerGen(s =>
+            services.AddSwaggerGen(options =>
             {
-                s.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Title = "API Documentation",
-                    Version = "v1.0",
-                    Description = ""
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Description = "Acesso protegido utilizando o accessToken obtido em \"api/auth/login\""
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
                 });
             });
         }
