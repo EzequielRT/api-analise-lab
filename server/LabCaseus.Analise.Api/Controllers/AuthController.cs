@@ -103,10 +103,7 @@ namespace LabCaseus.Analise.Api.Controllers
                     authClaims.Add(new(ClaimTypes.Role, userRole));
                 }
 
-                var token = GetToken(authClaims);
-
-                await _userManager.SetAuthenticationTokenAsync(user, TokenOptions.DefaultProvider, "jwt", token.Token);
-
+                var token = GetToken(authClaims, user.Email);
                 return ResponseApiOk(token);
             }
 
@@ -117,26 +114,26 @@ namespace LabCaseus.Analise.Api.Controllers
             });
         }
 
-        //[HttpPost]
-        //[Route("auth/logout")]
-        //[Authorize]
-        //public async Task<IActionResult> LogoutAsync()
-        //{
-        //    var result = _signInManager.SignOutAsync();
+        [HttpPost]
+        [Route("auth/logout")]
+        [Authorize]
+        public async Task<IActionResult> LogoutAsync()
+        {
+            var result = _signInManager.SignOutAsync();
 
-        //    if (!result.IsCompletedSuccessfully)
-        //    {
-        //        return BadRequest(new
-        //        {
-        //            success = false,
-        //            errors = "Logout falhou!"
-        //        });
-        //    }       
+            if (!result.IsCompletedSuccessfully)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    errors = "Logout falhou!"
+                });
+            }
 
-        //    return Ok();
-        //}
+            return Ok();
+        }
 
-        private TokenModel GetToken(List<Claim> authClaims)
+        private TokenModel GetToken(List<Claim> authClaims, string email)
         {
             var authSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 
@@ -151,6 +148,7 @@ namespace LabCaseus.Analise.Api.Controllers
             return new()
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
+                Profile = email.Equals("admin@technochem.com") ? "Admin" : "User",
                 ValidTo = token.ValidTo
             };
 
@@ -163,23 +161,5 @@ namespace LabCaseus.Analise.Api.Controllers
 
             await _userManager.AddToRoleAsync(user, role);
         }
-
-        //[HttpGet]
-        //[AllowAnonymous]
-        //[Route("auth/validar-token")]
-        //public async Task<IActionResult> ValidateToken()
-        //{
-        //    // Verificar se o token é válido e não foi revogado
-        //    var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
-        //    var token = await _userManager.GetAuthenticationTokenAsync(user, TokenOptions.DefaultProvider, "jwt");
-        //    var tokenIsValid = await _userManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, "Auth", token);
-
-        //    if (user is not null && tokenIsValid)
-        //    {
-        //        return ResponseApiOk(false);
-        //    }
-
-        //    return ResponseApiOk(true);
-        //}
     }
 }
