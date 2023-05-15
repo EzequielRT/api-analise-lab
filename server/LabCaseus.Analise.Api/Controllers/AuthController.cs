@@ -148,7 +148,7 @@ namespace LabCaseus.Analise.Api.Controllers
             return new()
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
-                Profile = email.Equals("admin@technochem.com") ? "Admin" : "User",
+                Profile = email.Equals("admin@technochem.com") ? "1" : "2",
                 ValidTo = token.ValidTo
             };
 
