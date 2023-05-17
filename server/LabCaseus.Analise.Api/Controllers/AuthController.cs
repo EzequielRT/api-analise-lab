@@ -103,7 +103,7 @@ namespace LabCaseus.Analise.Api.Controllers
                     authClaims.Add(new(ClaimTypes.Role, userRole));
                 }
 
-                var token = GetToken(authClaims, user.Email);
+                var token = GetToken(authClaims, userRoles.First());
                 return ResponseApiOk(token);
             }
 
@@ -133,7 +133,7 @@ namespace LabCaseus.Analise.Api.Controllers
             return Ok();
         }
 
-        private TokenModel GetToken(List<Claim> authClaims, string email)
+        private TokenModel GetToken(List<Claim> authClaims, string role)
         {
             var authSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 
@@ -148,10 +148,9 @@ namespace LabCaseus.Analise.Api.Controllers
             return new()
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
-                Profile = email.Equals("admin@technochem.com") ? "1" : "2",
+                Profile = role,
                 ValidTo = token.ValidTo
             };
-
         }
 
         private async Task AddToRoleAsync(IdentityUser user, string role)
