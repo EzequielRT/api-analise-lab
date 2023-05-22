@@ -1,22 +1,11 @@
 using LabCaseus.Analise.Api.Configurations;
 using LabCaseus.Analise.Application;
 using LabCaseus.Analise.Infra.Data;
-using LabCaseus.Analise.Infra.Data.Context;
-using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//AddIdentity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<UserDbContext>()
-    .AddDefaultTokenProviders();
-
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequiredLength = 6;
-});
+builder.AddIdentityConfiguration();
+builder.AddSerilogConfiguration(builder.Configuration);
 
 // Add services to the container.
 builder.Services.AddApiConfig(builder.Configuration);

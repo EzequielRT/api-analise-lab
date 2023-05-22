@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using LabCaseus.Analise.Infra.Data.Context;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using Serilog.Sinks.MSSqlServer;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -19,7 +23,7 @@ namespace LabCaseus.Analise.Api.Configurations
                 .AddJsonOptions(o =>
                 {
                     o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-                })                
+                })
                 .AddCors(options =>
                 {
                     options.AddPolicy("All",
@@ -75,6 +79,38 @@ namespace LabCaseus.Analise.Api.Configurations
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
+        }
+
+        public static void AddIdentityConfiguration(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<UserDbContext>()
+                .AddDefaultTokenProviders();
+
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+            });
+        }
+
+        public static void AddSerilogConfiguration(this WebApplicationBuilder builder, IConfiguration configuration)
+        {
+            builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
+            {
+                Log.Logger = new LoggerConfiguration()
+                    .Enrich.FromLogContext()
+                    .WriteTo.MSSqlServer(configuration.GetConnectionString("LabCaseusCs"),
+                        sinkOptions: new MSSqlServerSinkOptions()
+                        {
+                            AutoCreateSqlTable = true,
+                            TableName = "tb_logs"
+                        })
+                    .WriteTo.Console()
+                    .MinimumLevel.Error()
+                    .CreateLogger();
+            }).UseSerilog();
         }
     }
 }
