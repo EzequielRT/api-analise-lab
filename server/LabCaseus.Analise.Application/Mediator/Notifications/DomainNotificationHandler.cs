@@ -21,16 +21,16 @@ namespace LabCaseus.Analise.Application.Mediator.Notifications
             return _notifications.Any();
         }
 
-        public void Dispose()
-        {
-            _notifications = new List<DomainNotification>();
-        }
-
         public Task Handle(DomainNotification notification, CancellationToken cancellationToken)
         {
             _notifications.Add(notification);
 
             return Task.CompletedTask;
+        }     
+
+        public void Dispose()
+        {
+            _notifications = new List<DomainNotification>();
         }
     }
 }

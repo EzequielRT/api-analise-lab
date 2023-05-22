@@ -1,5 +1,4 @@
 ﻿using LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise;
-using LabCaseus.Analise.Application.Mediator;
 using LabCaseus.Analise.Application.Mediator.Notifications;
 using LabCaseus.Analise.Application.Queries.BuscarCertificadoAnalisePeloUId;
 using LabCaseus.Analise.Application.Queries.BuscarTodosCertificadosAnalise;
@@ -16,7 +15,7 @@ namespace LabCaseus.Analise.Api.Controllers
     [Route("api/v{version:apiVersion}/")]
     public class AnaliseController : ApiController
     {
-        private readonly IMediatorHandler _mediator;
+        private readonly IMediator _mediator;
         private readonly ICertificadoAnaliseRepository _certificadoAnaliseRepository;
         private readonly IFarmaceuticoRepository _farmaceuticoRepository;
         private readonly IClienteRepository _clienteRepository;
@@ -24,7 +23,7 @@ namespace LabCaseus.Analise.Api.Controllers
         public AnaliseController(
              ILogger<AnaliseController> logger,
              INotificationHandler<DomainNotification> notifications,
-             IMediatorHandler mediator,
+             IMediator mediator,
              ICertificadoAnaliseRepository certificadoAnaliseRepository,
              IFarmaceuticoRepository farmaceuticoRepository,
              IClienteRepository clienteRepository): base(logger, notifications)
@@ -40,9 +39,9 @@ namespace LabCaseus.Analise.Api.Controllers
         [Authorize(Roles = UserRoles.Admin)]
         public async Task<ActionResult> RegistrarCertificadoAnaliseAsync([FromBody] RegistrarCertificadoAnaliseCommand command, CancellationToken cancellationToken)
         {
-            await _mediator.SendCommand(command, cancellationToken);
+            await _mediator.Send(command, cancellationToken);
 
-            return ResponseApiCreatedAtAction(nameof(BuscarCertificadoAnalisePeloUIdAsync), new { certificadoAnaliseUId = command.CertificadoAnaliseUId }, command);
+            return ResponseApiOk(command);
         }
 
         [HttpGet]
@@ -52,9 +51,9 @@ namespace LabCaseus.Analise.Api.Controllers
         {
             var query = new BuscarTodosCertificadosAnaliseQuery();
 
-            await _mediator.SendCommand(query, cancellationToken);
+            var result = await _mediator.Send(query, cancellationToken);
 
-            return ResponseApiOk(query.GetResponse());
+            return ResponseApiOk(result);
         }
 
         [HttpGet]
@@ -64,11 +63,9 @@ namespace LabCaseus.Analise.Api.Controllers
         {
             var query = new BuscarCertificadoAnalisePeloUIdQuery(certificadoAnaliseUId);
 
-            await _mediator.SendCommand(query, cancellationToken);
+            var result = await _mediator.Send(query, cancellationToken);
 
-            if (query.GetResponse() == null) return ResponseApiNotFound();
-
-            return ResponseApiOk(query.GetResponse());
+            return ResponseApiOk(result);
         }
 
         [HttpGet]

@@ -25,7 +25,7 @@ namespace LabCaseus.Analise.Application.Mediator.Notifications
             var validator = _provider.GetService<IValidator<TRequest>>();
 
             if (validator == null)
-                throw new InvalidOperationException($"Validator for '{typeof(TRequest).FullName}' not found");
+                return next();
 
             _logger.LogDebug("Validating instance");
             var result = validator.Validate(request);

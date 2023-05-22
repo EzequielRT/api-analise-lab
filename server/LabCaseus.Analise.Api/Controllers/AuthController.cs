@@ -78,7 +78,7 @@ namespace LabCaseus.Analise.Api.Controllers
                 await AddToRoleAsync(user, UserRoles.User);
             }
 
-            return ResponseApiCreatedAtAction(null, null, "Usuário criado com sucesso!");
+            return ResponseApiOk("Usuário criado com sucesso!");
         }
 
         [HttpPost]

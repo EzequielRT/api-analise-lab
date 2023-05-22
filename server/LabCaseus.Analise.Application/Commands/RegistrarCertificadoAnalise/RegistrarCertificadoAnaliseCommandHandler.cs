@@ -6,22 +6,19 @@ using MediatR;
 
 namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
 {
-    public class RegistrarCertificadoAnaliseCommandHandler : CommandHandler,
-       IRequestHandler<RegistrarCertificadoAnaliseCommand, bool>
+    public class RegistrarCertificadoAnaliseCommandHandler :
+       IRequestHandler<RegistrarCertificadoAnaliseCommand, Unit>
     {
         private readonly IUnitOfWork _uow;
 
-        public RegistrarCertificadoAnaliseCommandHandler(
-            IMediatorHandler mediator,
-            INotificationHandler<DomainNotification> notifications,
-            IUnitOfWork uow) : base(mediator, notifications)
+        public RegistrarCertificadoAnaliseCommandHandler(IUnitOfWork uow)
         {
             _uow = uow;
         }
 
-        public async Task<bool> Handle(RegistrarCertificadoAnaliseCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(RegistrarCertificadoAnaliseCommand request, CancellationToken cancellationToken)
         {
-            await _uow.BeginTransactionAsync(cancellationToken);
+            //await _uow.BeginTransactionAsync(cancellationToken);
 
             var ph = request.AnaliseFisicoQuimica.Ph.ToEntity();
             await _uow.CertificadosAnalises.AdicionarPhAsync(ph, cancellationToken);
@@ -86,12 +83,12 @@ namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
                 .ToList(), cancellationToken);
             await _uow.CompleteAsync(cancellationToken);
 
-            await _uow.CommitAsync(cancellationToken);
+            //await _uow.CommitAsync(cancellationToken);
 
             request.SetCertificadoAnaliseUId(certificadoAnalise.UId);
             request.SetNumero(certificadoAnalise.Numero);
 
-            return true;
+            return Unit.Value;
         }
     }
 }

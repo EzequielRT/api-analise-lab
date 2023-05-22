@@ -1,8 +1,8 @@
-﻿using LabCaseus.Analise.Application.Mediator.Message;
+﻿using MediatR;
 
 namespace LabCaseus.Analise.Application.Mediator.Notifications
 {
-    public class DomainNotification : Event
+    public class DomainNotification : INotification
     {
         public Guid DomainNotificationId { get; private set; }
         public string Key { get; private set; }

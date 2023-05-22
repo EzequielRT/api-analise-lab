@@ -34,31 +34,6 @@ namespace LabCaseus.Analise.Api.Controllers
             });
         }
 
-        protected ActionResult ResponseApiCreatedAtAction(string? actionName, object? routeValues, object? result = null)
-        {
-            ModelStateIsValid();
-
-            if (!_notifications.HasNotifications())
-            {
-                return CreatedAtAction(actionName, routeValues, new { success = true, data = result });
-            }
-
-            return BadRequest(new
-            {
-                success = false,
-                errors = _notifications.GetNotifications().Select(n => new { Message = n.Value }).FirstOrDefault()
-            });
-        }
-
-        protected ActionResult ResponseApiNotFound()
-        {
-            return NotFound(new
-            {
-                success = false,
-                errors = _notifications.GetNotifications().Select(n => new { Message = n.Value }).FirstOrDefault()
-            });
-        }
-
         private void ModelStateIsValid()
         {
             if (!ModelState.IsValid)

@@ -1,11 +1,11 @@
-﻿using LabCaseus.Analise.Application.Mediator.Message;
-using LabCaseus.Analise.Domain;
+﻿using LabCaseus.Analise.Domain;
 using LabCaseus.Analise.Domain.Entities;
 using LabCaseus.Analise.Domain.ValueObjects;
+using MediatR;
 
 namespace LabCaseus.Analise.Application.Commands.RegistrarCertificadoAnalise
 {
-    public class RegistrarCertificadoAnaliseCommand : Command
+    public class RegistrarCertificadoAnaliseCommand : IRequest<Unit>
     {
         public Guid CertificadoAnaliseUId { get; private set; }
         public string Numero { get; private set; }
